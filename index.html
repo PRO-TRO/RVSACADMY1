@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Daily Competitive Quiz</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+
+    <!-- NAME INPUT SECTION -->
+<div id="name-section" class="card">
+  <h2>Enter Your Name</h2>
+  <input type="text" id="nameInput" placeholder="Your Name">
+  <button id="nameNextBtn" class="btn">Next</button>
+</div>
+
+<!-- CLASS SELECTION SECTION -->
+<div id="class-select" class="card hidden">
+  <h2 id="classTitle">Select Your Class</h2>
+  <div class="select-wrapper">
+    <div id="customSelect" class="custom-select">
+      <div class="select-selected">Select Class</div>
+      <div class="select-items select-hide">
+        <!-- Options added by JS -->
+      </div>
+    </div>
+  </div>
+  <button id="nextToSubjects" class="btn">Next</button>
+</div>
+
+<!-- SUBJECT SECTION -->
+<div id="subject-select" class="card hidden">
+  <div id="subjects"></div>
+</div>
+
+<!-- QUIZ SECTION -->
+<div id="quiz-section" class="card hidden">
+  <h2 id="quizTitle"></h2>
+  <div id="questionArea"></div>
+  <div id="optionsArea" class="options-box"></div>
+</div>
+
+<!-- RESULT SECTION -->
+<div id="result-section" class="card hidden">
+  <div id="scoreText"></div>
+  <button id="restartBtn" class="btn">Restart</button>
+</div>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
