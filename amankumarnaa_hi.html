@@ -1,0 +1,514 @@
+एचटीएमएल
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>
+   Teacher Dashboard (Offline with Login)
+  </title>
+<style>
+   body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+
+  }
+
+  /* Canvas Background */
+  #particleCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at bottom, #0d1b2a, #000814);
+  }
+
+  /* Foreground Container */
+  .container {
+    position: relative;
+    z-index: 5;
+    max-width: 800px;
+    margin: 40px auto;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+  }
+
+  h1, h2 {
+    text-align: center;
+    color: #1b263b;
+  }
+
+  input, textarea, button {
+    font-size: 16px;
+  }
+
+  input, textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 8px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+  }
+
+  button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    width: 100%;
+    transition: background 0.3s ease;
+  }
+
+  button:hover {
+    background-color: #0056b3;
+  }
+
+  .task {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    background: #f8f9fa;
+  }
+
+  .done {
+    background: #d4edda;
+  }
+
+  .task-title {
+    font-weight: bold;
+    font-size: 1.1em;
+  }
+
+  .line {
+    text-decoration: line-through;
+    color: gray;
+  }
+
+  .task-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 8px;
+  }
+
+  .task-actions button {
+    flex: 1 1 45%;
+  }
+
+  .proof-img {
+    margin-top: 8px;
+    max-width: 100%;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+  }
+
+  .progress {
+    height: 10px;
+    background: #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 10px 0;
+  }
+
+  .progress-bar {
+    height: 100%;
+    background: #28a745;
+    width: 0%;
+    transition: width 0.3s;
+  }
+
+  @media (max-width: 600px) {
+    .container {
+      margin: 15px;
+      padding: 15px;
+    }
+  }
+  </style>
+</head>
+<body>
+<!-- Unified Language Dropdown (auto-added) -->
+<style>
+      #langSwitcher {
+        margin: 16px auto;
+        text-align: center;
+      }
+      #langSelect {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 8px 14px;
+        border-radius: 6px;
+        font-size: 14px;
+        cursor: pointer;
+      }
+      #langSelect:hover {
+        background-color: #0056b3;
+      }
+      #langLabel {
+        font-weight: 600;
+        margin-right: 8px;
+      }
+    </style>
+<div id="langSwitcher">
+<label for="langSelect" id="langLabel">🌐 Language:</label>
+<select id="langSelect" onchange="switchLanguage(this.value)">
+<option value="">English</option><option selected="" value="_hi">हिन्दी</option><option value="_bho">भोजपुरी</option><option value="_bn">বাংলা</option>
+</select>
+</div>
+<script>
+    function switchLanguage(suffix) {
+        try {
+            const current = window.location.pathname.split('/').pop() || 'index.html';
+            const base = current.replace(/(_hi|_bho|_bn)?\.html$/i, '');
+            const newFile = base + (suffix || '') + '.html';
+            const currentUrl = window.location.href;
+            const newUrl = currentUrl.replace(/(_hi|_bho|_bn)?\.html(\?.*|#.*)?$/i, (suffix || '') + '.html$2');
+            // Works offline and online
+            fetch(newUrl, { method: 'HEAD' })
+              .then(res => {
+                if (res.ok) window.location.href = newUrl;
+                else alert('⚠️ Translation file not found for this page.');
+              })
+              .catch(() => {
+                const baseUrl = currentUrl.substring(0, currentUrl.lastIndexOf('/') + 1);
+                window.location.href = baseUrl + newFile;
+              });
+        } catch(err) {
+            console.error('Language switch failed:', err);
+            alert('Language switch failed.');
+        }
+    }
+    </script>
+
+<!-- Unified Language Dropdown (auto-inserted) -->
+<style>
+      #langSwitcher {
+        margin: 12px auto;
+        text-align: center;
+      }
+      #langSelect {
+        padding: 6px 10px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        font-size: 14px;
+        cursor: pointer;
+      }
+      #langLabel {
+        margin-right: 8px;
+        font-weight: 600;
+      }
+    </style>
+
+
+<!-- Unified Language Dropdown (auto-inserted) -->
+<style>
+      #langSwitcher {
+        margin: 12px auto;
+        text-align: center;
+      }
+      #langSelect {
+        padding: 6px 10px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        font-size: 14px;
+        cursor: pointer;
+      }
+      #langLabel {
+        margin-right: 8px;
+        font-weight: 600;
+      }
+    </style>
+
+<!-- Unified Language Dropdown -->
+<style>
+      #langSwitcher {
+        margin: 12px auto;
+        text-align: center;
+      }
+      #langSelect {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 8px 14px;
+        border-radius: 6px;
+        font-size: 14px;
+        cursor: pointer;
+      }
+      #langSelect:hover {
+        background-color: #0056b3;
+      }
+    </style>
+
+<!-- Language Switcher (Dropdown) -->
+<style>
+   #langSwitcher {
+        margin: 16px auto;
+        text-align: center;
+      }
+      #langSelect {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 8px 14px;
+        border-radius: 6px;
+        font-size: 14px;
+        cursor: pointer;
+      }
+      #langSelect:hover {
+        background-color: #0056b3;
+      }
+  </style>
+
+<canvas id="particleCanvas">
+</canvas>
+<div class="container" id="loginPage">
+<h1>
+    🧑‍🏫 शिक्षक लॉगिन
+   </h1>
+<p style="text-align:center;color:gray;">
+    अपने डैशबोर्ड तक पहुंचने के लिए अपना नाम और पासवर्ड दर्ज करें।
+   </p>
+<input id="teacherName" placeholder="शिक्षक का नाम" type="text"/>
+<input id="teacherPassword" placeholder="पासवर्ड" type="password"/>
+<button onclick="login()">
+    लॉग इन करें
+   </button>
+</div>
+<div class="container" id="dashboardPage" style="display:none;">
+<h1 id="teacherTitle">
+</h1>
+<div class="input-group">
+<h2>
+     नया कार्य जोड़ें
+    </h2>
+<input id="title" placeholder="विषय/कार्य नाम दर्ज करें" type="text"/>
+<input id="subject" placeholder="विषय दर्ज करें (वैकल्पिक)" type="text"/>
+<textarea id="desc" placeholder="विवरण या नोट्स (वैकल्पिक)"></textarea>
+<input id="deadline" type="date"/>
+<button onclick="addTask()">
+     ➕ कार्य जोड़ें
+    </button>
+</div>
+<div>
+<strong>
+     प्रगति:
+    </strong>
+<div class="progress">
+<div class="progress-bar" id="progressBar">
+</div>
+</div>
+<p id="progressText" style="font-size:14px;color:gray;">
+</p>
+</div>
+<input id="search" oninput="renderTasks()" placeholder="🔍 खोज कार्य ..." type="text"/>
+<div id="taskList" style="margin-top:20px;">
+</div>
+<button onclick="logout()" style="background:#dc3545;margin-top:20px;">
+    लॉग आउट
+   </button>
+</div>
+<script>
+   // ---------- PARTICLE BACKGROUND ----------
+  const canvas = document.getElementById("particleCanvas");
+  const ctx = canvas.getContext("2d");
+  let particles = [];
+  const numParticles = 80;
+
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+
+  window.addEventListener("resize", resizeCanvas);
+  resizeCanvas();
+
+  class Particle {
+    constructor() {
+      this.x = Math.random() * canvas.width;
+      this.y = Math.random() * canvas.height;
+      this.vx = (Math.random() - 0.5) * 0.8;
+      this.vy = (Math.random() - 0.5) * 0.8;
+      this.size = Math.random() * 2 + 1;
+    }
+
+    update() {
+      this.x += this.vx;
+      this.y += this.vy;
+      if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+      if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+    }
+
+    draw() {
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.fillStyle = "rgba(173, 216, 230, 0.8)";
+      ctx.fill();
+    }
+  }
+
+  function initParticles() {
+    particles = [];
+    for (let i = 0; i < numParticles; i++) {
+      particles.push(new Particle());
+    }
+  }
+
+  function animateParticles() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(p => {
+      p.update();
+      p.draw();
+    });
+    requestAnimationFrame(animateParticles);
+  }
+
+  initParticles();
+  animateParticles();
+
+  // ---------- DASHBOARD LOGIC ----------
+  let teachers = JSON.parse(localStorage.getItem("teachers") || "{}");
+  let currentTeacher = null;
+
+  function login() {
+    const name = document.getElementById("teacherName").value.trim();
+    const pass = document.getElementById("teacherPassword").value;
+    if (!name || !pass) return alert("Please enter both name and password!");
+    if (teachers[name]) {
+      if (teachers[name].password !== pass) return alert("Incorrect password!");
+      currentTeacher = name;
+    } else {
+      teachers[name] = { password: pass, tasks: [] };
+      currentTeacher = name;
+      localStorage.setItem("teachers", JSON.stringify(teachers));
+      alert("Welcome, new teacher profile created!");
+    }
+    document.getElementById("loginPage").style.display = "none";
+    document.getElementById("dashboardPage").style.display = "block";
+    document.getElementById("teacherTitle").innerText = "👩‍🏫 " + currentTeacher + "'s Dashboard";
+    renderTasks();
+  }
+
+  function logout() {
+    currentTeacher = null;
+    document.getElementById("dashboardPage").style.display = "none";
+    document.getElementById("loginPage").style.display = "block";
+    document.getElementById("teacherName").value = "";
+    document.getElementById("teacherPassword").value = "";
+  }
+
+  function saveData() {
+    localStorage.setItem("teachers", JSON.stringify(teachers));
+  }
+
+  function addTask() {
+    const t = teachers[currentTeacher].tasks;
+    const title = document.getElementById("title").value.trim();
+    if (!title) return alert("Please enter a task/topic name!");
+    const subject = document.getElementById("subject").value.trim();
+    const desc = document.getElementById("desc").value.trim();
+    const deadline = document.getElementById("deadline").value;
+    const task = { id: Date.now(), title, subject, desc, deadline, done: false, proofText: "", proofImage: "" };
+    t.push(task);
+    saveData();
+    renderTasks();
+    document.getElementById("title").value = "";
+    document.getElementById("subject").value = "";
+    document.getElementById("desc").value = "";
+    document.getElementById("deadline").value = "";
+  }
+
+  function toggleDone(id) {
+    const t = teachers[currentTeacher].tasks.find(x => x.id === id);
+    t.done = !t.done;
+    saveData();
+    renderTasks();
+  }
+
+  function addProofText(id) {
+    const prf = prompt("Enter proof or note for this task:");
+    if (prf) {
+      const t = teachers[currentTeacher].tasks.find(x => x.id === id);
+      t.proofText = prf;
+      saveData();
+      renderTasks();
+    }
+  }
+
+  function addProofImage(id) {
+    const input = document.createElement("input");
+    input.type = "file";
+    input.accept = "image/*";
+    input.onchange = (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(evt) {
+          const t = teachers[currentTeacher].tasks.find(x => x.id === id);
+          t.proofImage = evt.target.result;
+          saveData();
+          renderTasks();
+        };
+        reader.readAsDataURL(file);
+      }
+    };
+    input.click();
+  }
+
+  function deleteTask(id) {
+    if (!confirm("Delete this task?")) return;
+    teachers[currentTeacher].tasks = teachers[currentTeacher].tasks.filter(t => t.id !== id);
+    saveData();
+    renderTasks();
+  }
+
+  function renderTasks() {
+    const list = document.getElementById("taskList");
+    const search = document.getElementById("search").value.toLowerCase();
+    list.innerHTML = "";
+    const tasks = teachers[currentTeacher].tasks.filter(t => t.title.toLowerCase().includes(search));
+    if (tasks.length === 0) list.innerHTML = "<p style='text-align:center;color:gray;'>No tasks found.</p>";
+    tasks.forEach(t => {
+      const div = document.createElement("div");
+      div.className = "task" + (t.done ? " done" : "");
+      div.innerHTML = `
+        <div class="task-title ${t.done ? "line" : ""}">${t.title}</div>
+        ${t.subject ? `<div>📘 <em>${t.subject}</em></div>` : ""}
+        ${t.deadline ? `<div>⏰ ${t.deadline}</div>` : ""}
+        ${t.desc ? `<div>${t.desc}</div>` : ""}
+        ${t.proofText ? `<div>🧾 <strong>Proof:</strong> ${t.proofText}</div>` : ""}
+        ${t.proofImage ? `<img src="${t.proofImage}" class="proof-img" />` : ""}
+        <div class="task-actions">
+          <button onclick="toggleDone(${t.id})">${t.done ? "Undo" : "Mark Done"}</button>
+          <button onclick="addProofText(${t.id})">Add Note</button>
+          <button onclick="addProofImage(${t.id})">Add Image</button>
+          <button style="background:#dc3545;" onclick="deleteTask(${t.id})">Delete</button>
+        </div>
+      `;
+      list.appendChild(div);
+    });
+    updateProgress();
+  }
+
+  function updateProgress() {
+    const tasks = teachers[currentTeacher].tasks;
+    const done = tasks.filter(t => t.done).length;
+    const total = tasks.length;
+    const percent = total ? Math.round((done / total) * 100) : 0;
+    document.getElementById("progressBar").style.width = percent + "%";
+    document.getElementById("progressText").textContent = `${done} of ${total} tasks done (${percent}%)`;
+  }
+  </script>
+</body>
+</html>

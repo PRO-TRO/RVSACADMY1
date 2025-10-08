@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-
+एचटीएमएल के बा .
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
@@ -64,10 +63,10 @@ header p {margin-top:5px;font-size:16px;color:#FFFFAA;}
 <img id="driver-img" src="driver.jpg"/>
 <header>
 <h1>
-    Interactive Course Portal
+    इंटरैक्टिव कोर्स पोर्टल के बा।
    </h1>
 <p>
-    Top Courses &amp; Search Others
+    टॉप कोर्स आ अउरी खोज करीं
    </p>
 </header>
 <!-- Unified Language Dropdown (auto-inserted) -->
@@ -91,7 +90,7 @@ header p {margin-top:5px;font-size:16px;color:#FFFFAA;}
 <div id="langSwitcher">
 <label for="langSelect" id="langLabel">🌐 Language:</label>
 <select id="langSelect" onchange="switchLanguage(this.value)">
-<option selected="" value="">English</option><option value="_hi">हिन्दी</option><option value="_bho">भोजपुरी</option><option value="_bn">বাংলা</option>
+<option value="">English</option><option value="_hi">हिन्दी</option><option selected="" value="_bho">भोजपुरी</option><option value="_bn">বাংলা</option>
 </select>
 </div>
 <script>
@@ -108,6 +107,38 @@ header p {margin-top:5px;font-size:16px;color:#FFFFAA;}
     })();
     </script>
 
+<!-- Unified Language Dropdown (auto-inserted) -->
+<style>
+      #langSwitcher {
+        margin: 12px auto;
+        text-align: center;
+      }
+      #langSelect {
+        padding: 6px 10px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        font-size: 14px;
+        cursor: pointer;
+      }
+      #langLabel {
+        margin-right: 8px;
+        font-weight: 600;
+      }
+    </style>
+
+<script>
+    (function(){
+      const suffixRegex = new RegExp("(_hi|_bho|_bn)?\.html$");
+      window.switchLanguage = function(suffix) {
+          const current = window.location.pathname.split('/').pop() || '';
+          const folder = window.location.pathname.replace(/[^/]*$/,'');
+          // remove any of the known suffixes + .html from the filename
+          const base = current.replace(suffixRegex, '');
+          const newFile = base + (suffix || '') + '.html';
+          window.location.href = folder + newFile + window.location.search + window.location.hash;
+      };
+    })();
+    </script>
 <!-- Unified Language Dropdown -->
 <style>
       #langSwitcher {
@@ -127,7 +158,6 @@ header p {margin-top:5px;font-size:16px;color:#FFFFAA;}
         background-color: #0056b3;
       }
     </style>
-
 <script>
     function switchLanguage(suffix) {
         const current = window.location.pathname.split('/').pop() || '';
@@ -167,15 +197,15 @@ header p {margin-top:5px;font-size:16px;color:#FFFFAA;}
   </script>
 <div class="container">
 <div class="section-title">
-    Top 7 Courses
+    टॉप 7 कोर्स के बा .
    </div>
 <div class="courses-grid" id="topCoursesGrid">
 </div>
 <div class="section-title">
-    Search Other Courses
+    अउरी कोर्स के खोज करीं
    </div>
 <div class="search-box">
-<input id="searchInput" onkeyup="searchCourses()" placeholder="Type course name..." type="text"/>
+<input id="searchInput" onkeyup="searchCourses()" placeholder="कोर्स के नाम टाइप करीं..." type="text"/>
 </div>
 <div class="search-results" id="searchResults">
 </div>

@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-
+এইচটিএমএল
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
@@ -24,13 +23,13 @@
 <div class="w-full max-w-6xl">
 <header class="flex items-center justify-between mb-6">
 <h1 class="text-3xl font-extrabold">
-      🎮 Gamified Learning Hub
+      🎮 গেমিফাইড লার্নিং হাব
      </h1>
 <div class="flex items-center gap-3">
 <div class="text-sm opacity-90" id="welcome">
 </div>
 <button class="px-4 py-2 rounded-lg border border-slate-700" id="openAuth">
-       Login / Register
+       লগইন / নিবন্ধন
       </button>
 </div>
 </header>
@@ -55,7 +54,7 @@
 <div id="langSwitcher">
 <label for="langSelect" id="langLabel">🌐 Language:</label>
 <select id="langSelect" onchange="switchLanguage(this.value)">
-<option selected="" value="">English</option><option value="_hi">हिन्दी</option><option value="_bho">भोजपुरी</option><option value="_bn">বাংলা</option>
+<option value="">English</option><option value="_hi">हिन्दी</option><option value="_bho">भोजपुरी</option><option selected="" value="_bn">বাংলা</option>
 </select>
 </div>
 <script>
@@ -72,6 +71,38 @@
     })();
     </script>
 
+<!-- Unified Language Dropdown (auto-inserted) -->
+<style>
+      #langSwitcher {
+        margin: 12px auto;
+        text-align: center;
+      }
+      #langSelect {
+        padding: 6px 10px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        font-size: 14px;
+        cursor: pointer;
+      }
+      #langLabel {
+        margin-right: 8px;
+        font-weight: 600;
+      }
+    </style>
+
+<script>
+    (function(){
+      const suffixRegex = new RegExp("(_hi|_bho|_bn)?\.html$");
+      window.switchLanguage = function(suffix) {
+          const current = window.location.pathname.split('/').pop() || '';
+          const folder = window.location.pathname.replace(/[^/]*$/,'');
+          // remove any of the known suffixes + .html from the filename
+          const base = current.replace(suffixRegex, '');
+          const newFile = base + (suffix || '') + '.html';
+          window.location.href = folder + newFile + window.location.search + window.location.hash;
+      };
+    })();
+    </script>
 <!-- Unified Language Dropdown -->
 <style>
       #langSwitcher {
@@ -91,7 +122,6 @@
         background-color: #0056b3;
       }
     </style>
-
 <script>
     function switchLanguage(suffix) {
         const current = window.location.pathname.split('/').pop() || '';
@@ -171,29 +201,29 @@
 <!-- Left column: User / Timer / Progress -->
 <section class="col-span-1 bg-slate-800/30 p-5 rounded-2xl card-glow">
 <h2 class="text-xl font-semibold mb-2">
-       Profile &amp; Daily Timer
+       প্রোফাইল এবং দৈনিক টাইমার
       </h2>
 <div class="space-y-3" id="profileBox">
 <div class="text-sm text-slate-300">
-        Not logged in
+        লগ ইন নেই
        </div>
 <div class="flex items-center gap-2">
 <div class="big-timer" id="dailyTimer">
-         --:--:--
+         -:-:--
         </div>
 </div>
 <div class="text-xs text-slate-400">
-        Timer locks the Daily Quiz for 24 hours after you submit. It resets every 24 hours since your last quiz submission.
+        টাইমার আপনি জমা দেওয়ার পরে 24 ঘন্টা দৈনিক কুইজকে লক করে। এটি আপনার শেষ কুইজ জমা দেওয়ার পরে প্রতি 24 ঘন্টা পুনরায় সেট করে।
        </div>
 <div class="mt-3">
 <div class="text-sm font-medium">
-         Today's streak:
+         আজকের ধারা:
          <span id="streak">
           0
          </span>
 </div>
 <div class="text-sm font-medium">
-         Points:
+         পয়েন্ট:
          <span id="points">
           0
          </span>
@@ -201,7 +231,7 @@
 </div>
 <div class="mt-4">
 <button class="px-3 py-2 rounded-lg border border-slate-700" id="openClass">
-         Change Class / Mode
+         শ্রেণি / মোড পরিবর্তন করুন
         </button>
 </div>
 </div>
@@ -209,22 +239,22 @@
 <!-- Middle column: Game selector -->
 <section class="col-span-1 md:col-span-1 bg-slate-800/30 p-5 rounded-2xl card-glow">
 <h2 class="text-xl font-semibold mb-3">
-       Play &amp; Learn
+       খেলুন এবং শিখুন
       </h2>
 <div class="space-y-3">
 <div class="grid gap-3">
 <button class="gameBtn btn-primary px-4 py-3 rounded-lg text-left" data-game="dailyQuiz">
-         📚 Daily Quiz (5 questions)
+         📚 দৈনিক কুইজ (5 টি প্রশ্ন)
         </button>
 <button class="gameBtn btn-primary px-4 py-3 rounded-lg text-left" data-game="mathSprint">
-         ✏️ Math Sprint (timed)
+         ✏ ম্যাথ স্প্রিন্ট (সময়সীমা)
         </button>
 <button class="gameBtn btn-primary px-4 py-3 rounded-lg text-left" data-game="reactionGame">
-         🏃 Reaction Challenge
+         🏃 প্রতিক্রিয়া চ্যালেঞ্জ
         </button>
 </div>
 <div class="mt-4 text-sm text-slate-300">
-        Games adapt to your selected class (1–12) and mode (Easy/Medium/Hard). Scores and progress are saved locally in your browser.
+        গেমগুলি আপনার নির্বাচিত শ্রেণি (1–12) এবং মোড (সহজ/মাঝারি/হার্ড) এর সাথে খাপ খায়। স্কোর এবং অগ্রগতি আপনার ব্রাউজারে স্থানীয়ভাবে সংরক্ষণ করা হয়।
        </div>
 </div>
 </section>
@@ -232,16 +262,16 @@
 <section class="col-span-1 md:col-span-1 bg-slate-900/40 p-5 rounded-2xl min-h-[320px] card-glow" id="gameArea">
 <div id="gameContent">
 <h2 class="text-lg font-semibold">
-        Welcome!
+        স্বাগতম!
        </h2>
 <p class="text-sm text-slate-300">
-        Choose a game to start. Complete the Daily Quiz once per 24 hours for bonus points.
+        শুরু করতে একটি গেম চয়ন করুন। বোনাস পয়েন্টের জন্য 24 ঘন্টা একবার দৈনিক কুইজটি সম্পূর্ণ করুন।
        </p>
 </div>
 </section>
 </main>
 <footer class="mt-6 text-xs text-slate-400">
-     Local demo — all data stored locally. For multi-user/online features, connect to a server (I can help).
+     স্থানীয় ডেমো - সমস্ত ডেটা স্থানীয়ভাবে সঞ্চিত। মাল্টি-ব্যবহারকারী/অনলাইন বৈশিষ্ট্যগুলির জন্য, একটি সার্ভারের সাথে সংযুক্ত করুন (আমি সহায়তা করতে পারি)।
     </footer>
 </div>
 </div>
@@ -250,7 +280,7 @@
 <div class="bg-slate-900 rounded-2xl p-6 w-full max-w-2xl">
 <div class="flex items-center justify-between mb-4">
 <h3 class="text-xl font-bold">
-      Account — Login or Register
+      অ্যাকাউন্ট - লগইন বা নিবন্ধন করুন
      </h3>
 <button class="text-slate-400" id="closeModal">
       ✖
@@ -259,56 +289,56 @@
 <div class="grid md:grid-cols-2 gap-4">
 <div class="space-y-3">
 <div class="text-sm text-slate-300 font-semibold">
-       Existing user — Login
+       বিদ্যমান ব্যবহারকারী - লগইন
       </div>
-<input class="w-full p-2 rounded bg-slate-800/60" id="loginName" placeholder="Name"/>
-<input class="w-full p-2 rounded bg-slate-800/60" id="loginPass" placeholder="Password" type="password"/>
+<input class="w-full p-2 rounded bg-slate-800/60" id="loginName" placeholder="নাম"/>
+<input class="w-full p-2 rounded bg-slate-800/60" id="loginPass" placeholder="পাসওয়ার্ড" type="password"/>
 <button class="w-full mt-2 px-3 py-2 rounded btn-primary" id="loginBtn">
-       Login
+       লগইন
       </button>
 </div>
 <div class="space-y-3">
 <div class="text-sm text-slate-300 font-semibold">
-       New user — Register
+       নতুন ব্যবহারকারী - নিবন্ধন করুন
       </div>
-<input class="w-full p-2 rounded bg-slate-800/60" id="regName" placeholder="Full name"/>
-<input class="w-full p-2 rounded bg-slate-800/60" id="regPass" placeholder="Password" type="password"/>
+<input class="w-full p-2 rounded bg-slate-800/60" id="regName" placeholder="পুরো নাম"/>
+<input class="w-full p-2 rounded bg-slate-800/60" id="regPass" placeholder="পাসওয়ার্ড" type="password"/>
 <select class="w-full p-2 rounded bg-slate-800/60" id="regClass">
 <option value="6">
-        Class 6
+        ক্লাস 6
        </option>
 <option value="7">
-        Class 7
+        ক্লাস 7
        </option>
 <option value="8">
-        Class 8
+        ক্লাস 8
        </option>
 <option value="9">
-        Class 9
+        ক্লাস 9
        </option>
 <option value="10">
-        Class 10
+        ক্লাস 10
        </option>
 <option value="11">
-        Class 11
+        ক্লাস 11
        </option>
 <option value="12">
-        Class 12
+        ক্লাস 12
        </option>
 </select>
 <select class="w-full p-2 rounded bg-slate-800/60" id="regMode">
 <option>
-        Easy
+        সহজ
        </option>
 <option selected="">
-        Medium
+        মাধ্যম
        </option>
 <option>
-        Hard
+        হার্ড
        </option>
 </select>
 <button class="w-full mt-2 px-3 py-2 rounded btn-primary" id="regBtn">
-       Register &amp; Login
+       নিবন্ধন এবং লগইন
       </button>
 </div>
 </div>
@@ -321,7 +351,7 @@
 <div class="bg-slate-900 rounded-2xl p-6 w-full max-w-md">
 <div class="flex items-center justify-between mb-4">
 <h3 class="text-lg font-bold">
-      Choose Class &amp; Mode
+      শ্রেণি এবং মোড চয়ন করুন
      </h3>
 <button class="text-slate-400" id="closeClass">
       ✖
@@ -329,48 +359,48 @@
 </div>
 <div class="space-y-3">
 <label class="text-sm text-slate-300">
-      Class
+      ক্লাস
      </label>
 <select class="w-full p-2 rounded bg-slate-800/60" id="selClass">
 <option value="6">
-       Class 6
+       ক্লাস 6
       </option>
 <option value="7">
-       Class 7
+       ক্লাস 7
       </option>
 <option value="8">
-       Class 8
+       ক্লাস 8
       </option>
 <option value="9">
-       Class 9
+       ক্লাস 9
       </option>
 <option value="10">
-       Class 10
+       ক্লাস 10
       </option>
 <option value="11">
-       Class 11
+       ক্লাস 11
       </option>
 <option value="12">
-       Class 12
+       ক্লাস 12
       </option>
 </select>
 <label class="text-sm text-slate-300">
-      Mode
+      মোড
      </label>
 <select class="w-full p-2 rounded bg-slate-800/60" id="selMode">
 <option>
-       Easy
+       সহজ
       </option>
 <option selected="">
-       Medium
+       মাধ্যম
       </option>
 <option>
-       Hard
+       হার্ড
       </option>
 </select>
 <div class="flex gap-2 justify-end">
 <button class="px-3 py-2 rounded border" id="saveClass">
-       Save
+       সংরক্ষণ করুন
       </button>
 </div>
 </div>

@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-
+एचटीएमएल के बा .
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
@@ -24,13 +23,13 @@
 <div class="w-full max-w-6xl">
 <header class="flex items-center justify-between mb-6">
 <h1 class="text-3xl font-extrabold">
-      🎮 Gamified Learning Hub
+      🎮 गेमिफाइड लर्निंग हब के बा।
      </h1>
 <div class="flex items-center gap-3">
 <div class="text-sm opacity-90" id="welcome">
 </div>
 <button class="px-4 py-2 rounded-lg border border-slate-700" id="openAuth">
-       Login / Register
+       लॉगिन / रजिस्टर करीं
       </button>
 </div>
 </header>
@@ -55,7 +54,7 @@
 <div id="langSwitcher">
 <label for="langSelect" id="langLabel">🌐 Language:</label>
 <select id="langSelect" onchange="switchLanguage(this.value)">
-<option selected="" value="">English</option><option value="_hi">हिन्दी</option><option value="_bho">भोजपुरी</option><option value="_bn">বাংলা</option>
+<option value="">English</option><option value="_hi">हिन्दी</option><option selected="" value="_bho">भोजपुरी</option><option value="_bn">বাংলা</option>
 </select>
 </div>
 <script>
@@ -72,6 +71,38 @@
     })();
     </script>
 
+<!-- Unified Language Dropdown (auto-inserted) -->
+<style>
+      #langSwitcher {
+        margin: 12px auto;
+        text-align: center;
+      }
+      #langSelect {
+        padding: 6px 10px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        font-size: 14px;
+        cursor: pointer;
+      }
+      #langLabel {
+        margin-right: 8px;
+        font-weight: 600;
+      }
+    </style>
+
+<script>
+    (function(){
+      const suffixRegex = new RegExp("(_hi|_bho|_bn)?\.html$");
+      window.switchLanguage = function(suffix) {
+          const current = window.location.pathname.split('/').pop() || '';
+          const folder = window.location.pathname.replace(/[^/]*$/,'');
+          // remove any of the known suffixes + .html from the filename
+          const base = current.replace(suffixRegex, '');
+          const newFile = base + (suffix || '') + '.html';
+          window.location.href = folder + newFile + window.location.search + window.location.hash;
+      };
+    })();
+    </script>
 <!-- Unified Language Dropdown -->
 <style>
       #langSwitcher {
@@ -91,7 +122,6 @@
         background-color: #0056b3;
       }
     </style>
-
 <script>
     function switchLanguage(suffix) {
         const current = window.location.pathname.split('/').pop() || '';
@@ -171,29 +201,29 @@
 <!-- Left column: User / Timer / Progress -->
 <section class="col-span-1 bg-slate-800/30 p-5 rounded-2xl card-glow">
 <h2 class="text-xl font-semibold mb-2">
-       Profile &amp; Daily Timer
+       प्रोफाइल अउर दैनिक टाइमर
       </h2>
 <div class="space-y-3" id="profileBox">
 <div class="text-sm text-slate-300">
-        Not logged in
+        लॉग इन ना भइल
        </div>
 <div class="flex items-center gap-2">
 <div class="big-timer" id="dailyTimer">
-         --:--:--
+         --:--:-- के बा।
         </div>
 </div>
 <div class="text-xs text-slate-400">
-        Timer locks the Daily Quiz for 24 hours after you submit. It resets every 24 hours since your last quiz submission.
+        टाइमर रउरा सबमिट कइला का बाद 24 घंटा ले दैनिक क्विज के ताला लगा देला. इ आपके अंतिम क्विज सबमिशन के बाद से हर 24 घंटा में रिसेट करेला।
        </div>
 <div class="mt-3">
 <div class="text-sm font-medium">
-         Today's streak:
+         आज के लकीर :
          <span id="streak">
           0
          </span>
 </div>
 <div class="text-sm font-medium">
-         Points:
+         बिन्दु: 100 बा।
          <span id="points">
           0
          </span>
@@ -201,7 +231,7 @@
 </div>
 <div class="mt-4">
 <button class="px-3 py-2 rounded-lg border border-slate-700" id="openClass">
-         Change Class / Mode
+         वर्ग / मोड बदले के बा .
         </button>
 </div>
 </div>
@@ -209,22 +239,22 @@
 <!-- Middle column: Game selector -->
 <section class="col-span-1 md:col-span-1 bg-slate-800/30 p-5 rounded-2xl card-glow">
 <h2 class="text-xl font-semibold mb-3">
-       Play &amp; Learn
+       खेले के बा &amp; सीखल जाला .
       </h2>
 <div class="space-y-3">
 <div class="grid gap-3">
 <button class="gameBtn btn-primary px-4 py-3 rounded-lg text-left" data-game="dailyQuiz">
-         📚 Daily Quiz (5 questions)
+         📚 दैनिक क्विज (5 सवाल) के बा।
         </button>
 <button class="gameBtn btn-primary px-4 py-3 rounded-lg text-left" data-game="mathSprint">
-         ✏️ Math Sprint (timed)
+         ✏️ गणित के स्प्रिंट (समय पर)
         </button>
 <button class="gameBtn btn-primary px-4 py-3 rounded-lg text-left" data-game="reactionGame">
-         🏃 Reaction Challenge
+         🏃 रिएक्शन चैलेंज के बारे में बतावल गइल बा।
         </button>
 </div>
 <div class="mt-4 text-sm text-slate-300">
-        Games adapt to your selected class (1–12) and mode (Easy/Medium/Hard). Scores and progress are saved locally in your browser.
+        खेल आपके चुनल वर्ग (1-12) आ मोड (आसान/मध्यम/कठोर) के अनुकूल होला। रउरा ब्राउजर में स्कोर आ प्रगति के स्थानीय रूप से सेव कइल जाला.
        </div>
 </div>
 </section>
@@ -232,16 +262,16 @@
 <section class="col-span-1 md:col-span-1 bg-slate-900/40 p-5 rounded-2xl min-h-[320px] card-glow" id="gameArea">
 <div id="gameContent">
 <h2 class="text-lg font-semibold">
-        Welcome!
+        स्वागत!
        </h2>
 <p class="text-sm text-slate-300">
-        Choose a game to start. Complete the Daily Quiz once per 24 hours for bonus points.
+        शुरू करे खातिर कवनो खेल चुनीं. बोनस अंक खातिर प्रति 24 घंटा में एक बेर दैनिक क्विज पूरा करीं।
        </p>
 </div>
 </section>
 </main>
 <footer class="mt-6 text-xs text-slate-400">
-     Local demo — all data stored locally. For multi-user/online features, connect to a server (I can help).
+     स्थानीय डेमो — स्थानीय रूप से संग्रहीत सभ डेटा। मल्टी-यूजर/ऑनलाइन फीचर खातिर, कवनो सर्वर से कनेक्ट करीं (हम मदद कर सकेनी)।
     </footer>
 </div>
 </div>
@@ -250,7 +280,7 @@
 <div class="bg-slate-900 rounded-2xl p-6 w-full max-w-2xl">
 <div class="flex items-center justify-between mb-4">
 <h3 class="text-xl font-bold">
-      Account — Login or Register
+      खाता — लॉगिन करीं भा रजिस्टर करीं
      </h3>
 <button class="text-slate-400" id="closeModal">
       ✖
@@ -259,56 +289,56 @@
 <div class="grid md:grid-cols-2 gap-4">
 <div class="space-y-3">
 <div class="text-sm text-slate-300 font-semibold">
-       Existing user — Login
+       मौजूदा प्रयोगकर्ता — लॉगिन करीं
       </div>
-<input class="w-full p-2 rounded bg-slate-800/60" id="loginName" placeholder="Name"/>
-<input class="w-full p-2 rounded bg-slate-800/60" id="loginPass" placeholder="Password" type="password"/>
+<input class="w-full p-2 rounded bg-slate-800/60" id="loginName" placeholder="नांव"/>
+<input class="w-full p-2 rounded bg-slate-800/60" id="loginPass" placeholder="पासवर्ड" type="password"/>
 <button class="w-full mt-2 px-3 py-2 rounded btn-primary" id="loginBtn">
-       Login
+       लॉगिन कइल जाला .
       </button>
 </div>
 <div class="space-y-3">
 <div class="text-sm text-slate-300 font-semibold">
-       New user — Register
+       नया प्रयोगकर्ता — रजिस्टर करीं
       </div>
-<input class="w-full p-2 rounded bg-slate-800/60" id="regName" placeholder="Full name"/>
-<input class="w-full p-2 rounded bg-slate-800/60" id="regPass" placeholder="Password" type="password"/>
+<input class="w-full p-2 rounded bg-slate-800/60" id="regName" placeholder="पूरा नाम बा ."/>
+<input class="w-full p-2 rounded bg-slate-800/60" id="regPass" placeholder="पासवर्ड" type="password"/>
 <select class="w-full p-2 rounded bg-slate-800/60" id="regClass">
 <option value="6">
-        Class 6
+        कक्षा 6 के बा।
        </option>
 <option value="7">
-        Class 7
+        कक्षा 7 के बा।
        </option>
 <option value="8">
-        Class 8
+        कक्षा 8 के बा।
        </option>
 <option value="9">
-        Class 9
+        कक्षा 9 के बा।
        </option>
 <option value="10">
-        Class 10
+        कक्षा 10 के बा।
        </option>
 <option value="11">
-        Class 11
+        कक्षा 11 के बा।
        </option>
 <option value="12">
-        Class 12
+        कक्षा 12 के बा।
        </option>
 </select>
 <select class="w-full p-2 rounded bg-slate-800/60" id="regMode">
 <option>
-        Easy
+        आसान
        </option>
 <option selected="">
-        Medium
+        माध्यम
        </option>
 <option>
-        Hard
+        कड़ा
        </option>
 </select>
 <button class="w-full mt-2 px-3 py-2 rounded btn-primary" id="regBtn">
-       Register &amp; Login
+       रजिस्टर अउर लॉगिन 100 बा।
       </button>
 </div>
 </div>
@@ -321,7 +351,7 @@
 <div class="bg-slate-900 rounded-2xl p-6 w-full max-w-md">
 <div class="flex items-center justify-between mb-4">
 <h3 class="text-lg font-bold">
-      Choose Class &amp; Mode
+      क्लास अउर मोड चुनीं .
      </h3>
 <button class="text-slate-400" id="closeClass">
       ✖
@@ -329,48 +359,48 @@
 </div>
 <div class="space-y-3">
 <label class="text-sm text-slate-300">
-      Class
+      कक्षा
      </label>
 <select class="w-full p-2 rounded bg-slate-800/60" id="selClass">
 <option value="6">
-       Class 6
+       कक्षा 6 के बा।
       </option>
 <option value="7">
-       Class 7
+       कक्षा 7 के बा।
       </option>
 <option value="8">
-       Class 8
+       कक्षा 8 के बा।
       </option>
 <option value="9">
-       Class 9
+       कक्षा 9 के बा।
       </option>
 <option value="10">
-       Class 10
+       कक्षा 10 के बा।
       </option>
 <option value="11">
-       Class 11
+       कक्षा 11 के बा।
       </option>
 <option value="12">
-       Class 12
+       कक्षा 12 के बा।
       </option>
 </select>
 <label class="text-sm text-slate-300">
-      Mode
+      मोड के बा .
      </label>
 <select class="w-full p-2 rounded bg-slate-800/60" id="selMode">
 <option>
-       Easy
+       आसान
       </option>
 <option selected="">
-       Medium
+       माध्यम
       </option>
 <option>
-       Hard
+       कड़ा
       </option>
 </select>
 <div class="flex gap-2 justify-end">
 <button class="px-3 py-2 rounded border" id="saveClass">
-       Save
+       बचावल
       </button>
 </div>
 </div>
