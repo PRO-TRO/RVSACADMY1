@@ -1,0 +1,684 @@
+एचटीएमएल के बा .
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>
+   Gamified Learning Hub
+  </title>
+<script src="https://cdn.tailwindcss.com">
+</script>
+<style>
+   /* Small extra styles to complement Tailwind */
+    html,body,#app{height:100%}
+    .bg-hero{background:linear-gradient(135deg,#0f172a 0%,#001219 60%)}
+    .card-glow{box-shadow:0 10px 30px rgba(2,6,23,0.6)}
+    .btn-primary{background:linear-gradient(90deg,#06b6d4,#3b82f6);color:white}
+    .big-timer{font-weight:700;font-size:2.2rem}
+    .game-target{width:60px;height:60px;border-radius:9999px;position:absolute}
+  </style>
+</head>
+<body class="bg-hero text-slate-100 antialiased">
+<div class="min-h-screen flex items-center justify-center p-6" id="app">
+<div class="w-full max-w-6xl">
+<header class="flex items-center justify-between mb-6">
+<h1 class="text-3xl font-extrabold">
+      🎮 गेमिफाइड लर्निंग हब के बा।
+     </h1>
+<div class="flex items-center gap-3">
+<div class="text-sm opacity-90" id="welcome">
+</div>
+<button class="px-4 py-2 rounded-lg border border-slate-700" id="openAuth">
+       लॉगिन / रजिस्टर करीं
+      </button>
+</div>
+</header>
+<!-- Unified Language Dropdown (auto-inserted) -->
+<style>
+      #langSwitcher {
+        margin: 12px auto;
+        text-align: center;
+      }
+      #langSelect {
+        padding: 6px 10px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        font-size: 14px;
+        cursor: pointer;
+      }
+      #langLabel {
+        margin-right: 8px;
+        font-weight: 600;
+      }
+    </style>
+<div id="langSwitcher">
+<label for="langSelect" id="langLabel">🌐 Language:</label>
+<select id="langSelect" onchange="switchLanguage(this.value)">
+<option value="">English</option><option value="_hi">हिन्दी</option><option selected="" value="_bho">भोजपुरी</option><option value="_bn">বাংলা</option>
+</select>
+</div>
+<script>
+    (function(){
+      const suffixRegex = new RegExp("(_hi|_bho|_bn)?\.html$");
+      window.switchLanguage = function(suffix) {
+          const current = window.location.pathname.split('/').pop() || '';
+          const folder = window.location.pathname.replace(/[^/]*$/,'');
+          // remove any of the known suffixes + .html from the filename
+          const base = current.replace(suffixRegex, '');
+          const newFile = base + (suffix || '') + '.html';
+          window.location.href = folder + newFile + window.location.search + window.location.hash;
+      };
+    })();
+    </script>
+
+<!-- Unified Language Dropdown (auto-inserted) -->
+<style>
+      #langSwitcher {
+        margin: 12px auto;
+        text-align: center;
+      }
+      #langSelect {
+        padding: 6px 10px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        font-size: 14px;
+        cursor: pointer;
+      }
+      #langLabel {
+        margin-right: 8px;
+        font-weight: 600;
+      }
+    </style>
+
+<script>
+    (function(){
+      const suffixRegex = new RegExp("(_hi|_bho|_bn)?\.html$");
+      window.switchLanguage = function(suffix) {
+          const current = window.location.pathname.split('/').pop() || '';
+          const folder = window.location.pathname.replace(/[^/]*$/,'');
+          // remove any of the known suffixes + .html from the filename
+          const base = current.replace(suffixRegex, '');
+          const newFile = base + (suffix || '') + '.html';
+          window.location.href = folder + newFile + window.location.search + window.location.hash;
+      };
+    })();
+    </script>
+<!-- Unified Language Dropdown -->
+<style>
+      #langSwitcher {
+        margin: 12px auto;
+        text-align: center;
+      }
+      #langSelect {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 8px 14px;
+        border-radius: 6px;
+        font-size: 14px;
+        cursor: pointer;
+      }
+      #langSelect:hover {
+        background-color: #0056b3;
+      }
+    </style>
+<script>
+    function switchLanguage(suffix) {
+        const current = window.location.pathname.split('/').pop() || '';
+        const folder = window.location.pathname.replace(/[^/]*$/, '');
+        const base = current.replace(/(_hi|_bho|_bn)?\.html$/, '');
+        const newFile = base + (suffix || '') + '.html';
+        window.location.href = folder + newFile + window.location.search + window.location.hash;
+    }
+    </script>
+<!-- Language Switcher (Safe) -->
+<script>
+      function switchLanguage(suffix) {
+        const file = window.location.pathname.split('/').pop();
+        const folder = window.location.pathname.replace(/[^/]*$/, '');
+        const base = file.replace(/(_hi|_bho|_bn)?\.html$/, '');
+        const target = base + (suffix || '') + '.html';
+        window.location.href = folder + target;
+      }
+    </script>
+<!-- Language Switcher (Dropdown) -->
+<style>
+     #langSwitcher {
+        margin: 16px auto;
+        text-align: center;
+      }
+      #langSelect {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 8px 14px;
+        border-radius: 6px;
+        font-size: 14px;
+        cursor: pointer;
+      }
+      #langSelect:hover {
+        background-color: #0056b3;
+      }
+    </style>
+<script>
+     function switchLanguage(suffix) {
+        const current = window.location.pathname.split('/').pop() || '';
+        const folder = window.location.pathname.replace(/[^/]*$/, '');
+        const base = current.replace(/(_hi|_bho|_bn)?\.html$/, '');
+        const newFile = base + (suffix || '') + '.html';
+        window.location.href = folder + newFile + window.location.search + window.location.hash;
+    }
+    </script>
+<!-- Language Switcher (Dropdown) -->
+<style>
+     #langSwitcher {
+        margin: 16px auto;
+        text-align: center;
+      }
+      #langSelect {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 8px 14px;
+        border-radius: 6px;
+        font-size: 14px;
+        cursor: pointer;
+      }
+      #langSelect:hover {
+        background-color: #0056b3;
+      }
+    </style>
+<script>
+     function switchLanguage(suffix) {
+        const current = window.location.pathname.split('/').pop() || '';
+        const folder = window.location.pathname.replace(/[^/]*$/, '');
+        const base = current.replace(/(_hi|_bho|_bn)?\.html$/, '');
+        const newFile = base + (suffix || '') + '.html';
+        window.location.href = folder + newFile + window.location.search + window.location.hash;
+    }
+    </script>
+<main class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Left column: User / Timer / Progress -->
+<section class="col-span-1 bg-slate-800/30 p-5 rounded-2xl card-glow">
+<h2 class="text-xl font-semibold mb-2">
+       प्रोफाइल अउर दैनिक टाइमर
+      </h2>
+<div class="space-y-3" id="profileBox">
+<div class="text-sm text-slate-300">
+        लॉग इन ना भइल
+       </div>
+<div class="flex items-center gap-2">
+<div class="big-timer" id="dailyTimer">
+         --:--:-- के बा।
+        </div>
+</div>
+<div class="text-xs text-slate-400">
+        टाइमर रउरा सबमिट कइला का बाद 24 घंटा ले दैनिक क्विज के ताला लगा देला. इ आपके अंतिम क्विज सबमिशन के बाद से हर 24 घंटा में रिसेट करेला।
+       </div>
+<div class="mt-3">
+<div class="text-sm font-medium">
+         आज के लकीर :
+         <span id="streak">
+          0
+         </span>
+</div>
+<div class="text-sm font-medium">
+         बिन्दु: 100 बा।
+         <span id="points">
+          0
+         </span>
+</div>
+</div>
+<div class="mt-4">
+<button class="px-3 py-2 rounded-lg border border-slate-700" id="openClass">
+         वर्ग / मोड बदले के बा .
+        </button>
+</div>
+</div>
+</section>
+<!-- Middle column: Game selector -->
+<section class="col-span-1 md:col-span-1 bg-slate-800/30 p-5 rounded-2xl card-glow">
+<h2 class="text-xl font-semibold mb-3">
+       खेले के बा &amp; सीखल जाला .
+      </h2>
+<div class="space-y-3">
+<div class="grid gap-3">
+<button class="gameBtn btn-primary px-4 py-3 rounded-lg text-left" data-game="dailyQuiz">
+         📚 दैनिक क्विज (5 सवाल) के बा।
+        </button>
+<button class="gameBtn btn-primary px-4 py-3 rounded-lg text-left" data-game="mathSprint">
+         ✏️ गणित के स्प्रिंट (समय पर)
+        </button>
+<button class="gameBtn btn-primary px-4 py-3 rounded-lg text-left" data-game="reactionGame">
+         🏃 रिएक्शन चैलेंज के बारे में बतावल गइल बा।
+        </button>
+</div>
+<div class="mt-4 text-sm text-slate-300">
+        खेल आपके चुनल वर्ग (1-12) आ मोड (आसान/मध्यम/कठोर) के अनुकूल होला। रउरा ब्राउजर में स्कोर आ प्रगति के स्थानीय रूप से सेव कइल जाला.
+       </div>
+</div>
+</section>
+<!-- Right column: Active game area -->
+<section class="col-span-1 md:col-span-1 bg-slate-900/40 p-5 rounded-2xl min-h-[320px] card-glow" id="gameArea">
+<div id="gameContent">
+<h2 class="text-lg font-semibold">
+        स्वागत!
+       </h2>
+<p class="text-sm text-slate-300">
+        शुरू करे खातिर कवनो खेल चुनीं. बोनस अंक खातिर प्रति 24 घंटा में एक बेर दैनिक क्विज पूरा करीं।
+       </p>
+</div>
+</section>
+</main>
+<footer class="mt-6 text-xs text-slate-400">
+     स्थानीय डेमो — स्थानीय रूप से संग्रहीत सभ डेटा। मल्टी-यूजर/ऑनलाइन फीचर खातिर, कवनो सर्वर से कनेक्ट करीं (हम मदद कर सकेनी)।
+    </footer>
+</div>
+</div>
+<!-- Authentication & Settings Modal (hidden by default) -->
+<div class="fixed inset-0 flex items-center justify-center bg-black/60 hidden" id="modal">
+<div class="bg-slate-900 rounded-2xl p-6 w-full max-w-2xl">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-xl font-bold">
+      खाता — लॉगिन करीं भा रजिस्टर करीं
+     </h3>
+<button class="text-slate-400" id="closeModal">
+      ✖
+     </button>
+</div>
+<div class="grid md:grid-cols-2 gap-4">
+<div class="space-y-3">
+<div class="text-sm text-slate-300 font-semibold">
+       मौजूदा प्रयोगकर्ता — लॉगिन करीं
+      </div>
+<input class="w-full p-2 rounded bg-slate-800/60" id="loginName" placeholder="नांव"/>
+<input class="w-full p-2 rounded bg-slate-800/60" id="loginPass" placeholder="पासवर्ड" type="password"/>
+<button class="w-full mt-2 px-3 py-2 rounded btn-primary" id="loginBtn">
+       लॉगिन कइल जाला .
+      </button>
+</div>
+<div class="space-y-3">
+<div class="text-sm text-slate-300 font-semibold">
+       नया प्रयोगकर्ता — रजिस्टर करीं
+      </div>
+<input class="w-full p-2 rounded bg-slate-800/60" id="regName" placeholder="पूरा नाम बा ."/>
+<input class="w-full p-2 rounded bg-slate-800/60" id="regPass" placeholder="पासवर्ड" type="password"/>
+<select class="w-full p-2 rounded bg-slate-800/60" id="regClass">
+<option value="6">
+        कक्षा 6 के बा।
+       </option>
+<option value="7">
+        कक्षा 7 के बा।
+       </option>
+<option value="8">
+        कक्षा 8 के बा।
+       </option>
+<option value="9">
+        कक्षा 9 के बा।
+       </option>
+<option value="10">
+        कक्षा 10 के बा।
+       </option>
+<option value="11">
+        कक्षा 11 के बा।
+       </option>
+<option value="12">
+        कक्षा 12 के बा।
+       </option>
+</select>
+<select class="w-full p-2 rounded bg-slate-800/60" id="regMode">
+<option>
+        आसान
+       </option>
+<option selected="">
+        माध्यम
+       </option>
+<option>
+        कड़ा
+       </option>
+</select>
+<button class="w-full mt-2 px-3 py-2 rounded btn-primary" id="regBtn">
+       रजिस्टर अउर लॉगिन 100 बा।
+      </button>
+</div>
+</div>
+<div class="mt-3 text-sm text-amber-200" id="authMsg">
+</div>
+</div>
+</div>
+<!-- Class/Mode modal -->
+<div class="fixed inset-0 flex items-center justify-center bg-black/50 hidden" id="classModal">
+<div class="bg-slate-900 rounded-2xl p-6 w-full max-w-md">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-lg font-bold">
+      क्लास अउर मोड चुनीं .
+     </h3>
+<button class="text-slate-400" id="closeClass">
+      ✖
+     </button>
+</div>
+<div class="space-y-3">
+<label class="text-sm text-slate-300">
+      कक्षा
+     </label>
+<select class="w-full p-2 rounded bg-slate-800/60" id="selClass">
+<option value="6">
+       कक्षा 6 के बा।
+      </option>
+<option value="7">
+       कक्षा 7 के बा।
+      </option>
+<option value="8">
+       कक्षा 8 के बा।
+      </option>
+<option value="9">
+       कक्षा 9 के बा।
+      </option>
+<option value="10">
+       कक्षा 10 के बा।
+      </option>
+<option value="11">
+       कक्षा 11 के बा।
+      </option>
+<option value="12">
+       कक्षा 12 के बा।
+      </option>
+</select>
+<label class="text-sm text-slate-300">
+      मोड के बा .
+     </label>
+<select class="w-full p-2 rounded bg-slate-800/60" id="selMode">
+<option>
+       आसान
+      </option>
+<option selected="">
+       माध्यम
+      </option>
+<option>
+       कड़ा
+      </option>
+</select>
+<div class="flex gap-2 justify-end">
+<button class="px-3 py-2 rounded border" id="saveClass">
+       बचावल
+      </button>
+</div>
+</div>
+</div>
+</div>
+<script>
+   /* -----------------------------
+       Simple in-browser user system
+       - stores users in localStorage under key 'glh_users'
+       - stores current session as 'glh_session'
+       - daily quiz state keyed by date so questions refresh daily
+       ------------------------------*/
+
+    const LS_USERS = 'glh_users_v1';
+    const LS_SESSION = 'glh_session_v1';
+
+    // Utilities
+    const $ = sel => document.querySelector(sel);
+    const todayKey = () => {
+      const d = new Date();
+      return d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate();
+    };
+
+    function loadUsers(){
+      try{ return JSON.parse(localStorage.getItem(LS_USERS)||'{}'); }catch(e){return {}};
+    }
+    function saveUsers(u){ localStorage.setItem(LS_USERS, JSON.stringify(u)); }
+    function saveSession(s){ localStorage.setItem(LS_SESSION, JSON.stringify(s)); }
+    function loadSession(){ try{return JSON.parse(localStorage.getItem(LS_SESSION)||'null');}catch(e){return null} }
+
+    function simpleHash(s){ return btoa(unescape(encodeURIComponent(s))).slice(0,32); }
+
+    // Example question bank (extendable). Each item has class, subject, q, options, answer
+    const QUESTION_BANK = [
+      {cls:6,sub:'Math',q:'What is 7 × 8?',opts:['54','56','49','64'],a:'56'},
+      {cls:6,sub:'Science',q:'Which is a gas at room temperature?',opts:['Iron','Oxygen','Water','Sand'],a:'Oxygen'},
+      {cls:7,sub:'Math',q:'What is the LCM of 4 and 6?',opts:['6','12','8','24'],a:'12'},
+      {cls:8,sub:'Physics',q:'What is the SI unit of force?',opts:['Joule','Newton','Pascal','Watt'],a:'Newton'},
+      {cls:9,sub:'Math',q:'Solve: x+5=12. x=?',opts:['7','6','-7','5'],a:'7'},
+      {cls:10,sub:'Chemistry',q:'pH of neutral water (approx)?',opts:['7','1','14','0'],a:'7'},
+      {cls:11,sub:'Physics',q:'Acceleration due to gravity on Earth (approx m/s²)?',opts:['9.8','5','12','15'],a:'9.8'},
+      {cls:12,sub:'Math',q:'Derivative of x^2 is?',opts:['x','2x','x^2','2'],a:'2x'},
+      // add more entries or create algorithmic questions later
+    ];
+
+    // ----- Auth handlers -----
+    function registerUser(name, pass, cls, mode){
+      const users = loadUsers();
+      if(users[name]) return {ok:false,msg:'Name already taken'};
+      users[name] = {pwd:simpleHash(pass),class:parseInt(cls,10)||6,mode:mode||'Medium',points:0,streak:0,lastQuiz: null};
+      saveUsers(users);
+      saveSession({name:name});
+      return {ok:true};
+    }
+    function loginUser(name, pass){
+      const users = loadUsers();
+      if(!users[name]) return {ok:false,msg:'No such user'};
+      if(users[name].pwd !== simpleHash(pass)) return {ok:false,msg:'Wrong password'};
+      saveSession({name:name});
+      return {ok:true};
+    }
+
+    // ----- Session & UI -----
+    function updateHeader(){
+      const sess = loadSession();
+      if(!sess){ $('#welcome').innerText='Guest'; $('#profileBox').querySelector('div').innerText='Not logged in'; return; }
+      const users = loadUsers();
+      const u = users[sess.name];
+      $('#welcome').innerText = sess.name + ' • Class ' + u.class + ' • ' + u.mode;
+      $('#profileBox').querySelector('div').innerText = '';
+      $('#points').innerText = u.points || 0;
+      $('#streak').innerText = u.streak || 0;
+    }
+
+    // ----- Daily quiz lock timer -----
+    let timerInterval = null;
+    function startDailyTimer(){
+      clearInterval(timerInterval);
+      const sess = loadSession();
+      if(!sess){ $('#dailyTimer').innerText='--:--:--'; return; }
+      const users = loadUsers();
+      const u = users[sess.name];
+      const last = u.lastQuiz ? new Date(u.lastQuiz) : null;
+      const now = new Date();
+      if(!last){ $('#dailyTimer').innerText='Ready'; return; }
+      const msPassed = now - last;
+      const msDay = 24*60*60*1000;
+      if(msPassed >= msDay){ $('#dailyTimer').innerText='Ready'; return; }
+      const remaining = msDay - msPassed;
+      function tick(){
+        const rem = msDay - (new Date() - new Date(u.lastQuiz));
+        if(rem<=0){ $('#dailyTimer').innerText='Ready'; clearInterval(timerInterval); return; }
+        const s = Math.floor(rem/1000)%60;
+        const m = Math.floor(rem/60000)%60;
+        const h = Math.floor(rem/3600000);
+        $('#dailyTimer').innerText = String(h).padStart(2,'0')+':'+String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+      }
+      tick(); timerInterval = setInterval(tick,1000);
+    }
+
+    // ----- Game system -----
+    const gameContent = $('#gameContent');
+
+    function chooseQuestionsForUser(n=5){
+      const sess = loadSession();
+      const users = loadUsers();
+      if(!sess) return [];
+      const u = users[sess.name];
+      const cls = u.class;
+      // Filter bank by class or lower classes
+      const pool = QUESTION_BANK.filter(q=>q.cls<=cls+0);
+      // shuffle
+      const arr = pool.slice();
+      for(let i=arr.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [arr[i],arr[j]]=[arr[j],arr[i]]; }
+      return arr.slice(0,n);
+    }
+
+    function renderDailyQuiz(){
+      const sess = loadSession();
+      if(!sess){ gameContent.innerHTML = '<div class="text-sm">Please login to play the Daily Quiz.</div>'; return; }
+      // check timer
+      const users = loadUsers(); const u = users[sess.name];
+      const last = u.lastQuiz ? new Date(u.lastQuiz) : null;
+      if(last && (new Date()-last) < 24*60*60*1000){ gameContent.innerHTML = '<div class="text-sm">Daily Quiz already completed. Come back later.</div>'; return; }
+      const qs = chooseQuestionsForUser(5);
+      if(qs.length===0){ gameContent.innerHTML='<div class="text-sm">Not enough questions for your class. Add more to the bank.</div>'; return; }
+
+      let html = '<h3 class="text-lg font-semibold mb-2">Daily Quiz — 5 Qs</h3>';
+      html += '<form id="quizForm" class="space-y-4">';
+      qs.forEach((q,i)=>{
+        html += `<div class="p-3 bg-slate-800/40 rounded">
+                  <div class="font-medium">${i+1}. ${q.q}</div>
+                  <div class="grid grid-cols-2 gap-2 mt-2">`;
+        q.opts.forEach(opt=>{
+          html += `<label class="p-2 border rounded cursor-pointer"><input type="radio" name="q${i}" value="${opt}" class="mr-2"> ${opt}</label>`;
+        });
+        html += '</div></div>';
+      });
+      html += '<div class="flex gap-2 justify-end"><button type="submit" class="px-4 py-2 rounded btn-primary">Submit Quiz</button></div>';
+      html += '</form>';
+      gameContent.innerHTML = html;
+
+      $('#quizForm').addEventListener('submit', e=>{
+        e.preventDefault();
+        const form = new FormData(e.target);
+        let score=0;
+        qs.forEach((q,i)=>{ if(form.get('q'+i) === q.a) score++; });
+        // update user points & streak
+        users[sess.name].points = (users[sess.name].points||0) + score*10 + 20; // base bonus
+        const yesterday = new Date(); yesterday.setDate(yesterday.getDate()-1);
+        const lastQuizDay = users[sess.name].lastQuiz ? new Date(users[sess.name].lastQuiz) : null;
+        if(lastQuizDay && lastQuizDay.toDateString() === yesterday.toDateString()){
+          users[sess.name].streak = (users[sess.name].streak||0) + 1;
+        } else { users[sess.name].streak = 1; }
+        users[sess.name].lastQuiz = new Date().toISOString();
+        saveUsers(users);
+        saveSession({name:sess.name});
+        updateHeader(); startDailyTimer();
+        gameContent.innerHTML = `<div class="p-4 rounded bg-slate-800/50">You scored <strong>${score}</strong> / ${qs.length}. Points updated.</div>`;
+      });
+    }
+
+    // Math Sprint: fast arithmetic questions, timed
+    function renderMathSprint(){
+      const sess = loadSession();
+      const users = loadUsers();
+      const u = sess? users[sess.name] : null;
+      let timeLeft = 45; // seconds
+      let score = 0; let qCount=0;
+      gameContent.innerHTML = `<div>
+        <div class="flex justify-between items-center mb-2"><div class="text-lg font-semibold">Math Sprint — solve quickly</div><div class="text-sm">Time: <span id="msTimer">${timeLeft}</span>s</div></div>
+        <div id="msQuestion" class="p-4 bg-slate-800/40 rounded mb-3"></div>
+        <div class="flex gap-2"><input id="msAnswer" class="p-2 rounded bg-slate-800/60" placeholder="Answer"><button id="msSubmit" class="px-3 py-2 rounded btn-primary">Submit</button></div>
+        <div class="mt-3 text-sm text-slate-300">Score: <span id="msScore">0</span></div>
+      </div>`;
+      const qEl = $('#msQuestion'); const tEl = $('#msTimer'); const aEl = $('#msAnswer'); const scEl = $('#msScore');
+
+      function makeQuestion(){
+        const a = Math.ceil(Math.random()*12*(u? (u.class/6):1));
+        const b = Math.ceil(Math.random()*12*(u? (u.class/6):1));
+        const op = ['+','-','×','÷'][Math.floor(Math.random()*4)];
+        let qtext,ans;
+        if(op==='+'){ ans = a+b; qtext=`${a} + ${b}`;} 
+        if(op==='-'){ ans = a-b; qtext=`${a} - ${b}`;} 
+        if(op==='×'){ ans = a*b; qtext=`${a} × ${b}`;} 
+        if(op==='÷'){ ans = Math.round((a/b)*100)/100; qtext=`${a} ÷ ${b} (rounded 2dp)`; }
+        qCount++; qEl.innerHTML = `<div class="font-medium">Q${qCount}: ${qtext}</div>`;
+        return ans;
+      }
+
+      let correctAns = makeQuestion();
+      aEl.focus();
+      const msTimer = setInterval(()=>{
+        timeLeft--; tEl.innerText=timeLeft; if(timeLeft<=0){ clearInterval(msTimer); endSprint(); }
+      },1000);
+
+      function endSprint(){
+        $('#msSubmit').disabled=true; aEl.disabled=true;
+        if(sess){ users[sess.name].points = (users[sess.name].points||0)+score*5; saveUsers(users); updateHeader(); }
+        gameContent.innerHTML = `<div class="p-4 rounded bg-slate-800/50">Sprint over — Score: ${score}</div>`;
+      }
+
+      $('#msSubmit').addEventListener('click', ()=>{
+        const val = aEl.value.trim(); if(!val) return;
+        // compare with tolerance for division
+        const numeric = parseFloat(val);
+        if(Math.abs(numeric - correctAns) < 0.005){ score+=2; } else { score-=1; }
+        scEl.innerText = score; aEl.value=''; correctAns = makeQuestion(); aEl.focus();
+      });
+    }
+
+    // Reaction Game: click moving targets
+    function renderReactionGame(){
+      let timeLeft = 20; let score = 0;
+      gameContent.innerHTML = `<div>
+        <div class="flex justify-between items-center mb-2"><div class="text-lg font-semibold">Reaction Challenge</div><div class="text-sm">Time: <span id="rgTimer">${timeLeft}</span>s</div></div>
+        <div id="arena" class="relative w-full h-56 bg-slate-800/20 rounded"></div>
+        <div class="mt-3 text-sm">Score: <span id="rgScore">0</span></div>
+      </div>`;
+      const arena = $('#arena'); const tEl = $('#rgTimer'); const sEl = $('#rgScore');
+      const spawn = ()=>{
+        arena.innerHTML='';
+        const target = document.createElement('div');
+        target.className='game-target bg-amber-400';
+        target.style.left = Math.random()*(arena.clientWidth-60)+'px';
+        target.style.top = Math.random()*(arena.clientHeight-60)+'px';
+        target.style.background = 'linear-gradient(135deg,#f59e0b,#ef4444)';
+        arena.appendChild(target);
+        target.addEventListener('click', ()=>{ score+=1; sEl.innerText=score; spawn(); });
+      };
+      spawn();
+      const rgTimer = setInterval(()=>{ timeLeft--; tEl.innerText=timeLeft; if(timeLeft<=0){ clearInterval(rgTimer); arena.innerHTML='<div class="p-4">Time up — Score: '+score+'</div>'; const sess=loadSession(); if(sess){ const users=loadUsers(); users[sess.name].points=(users[sess.name].points||0)+score*3; saveUsers(users); updateHeader(); } } },1000);
+    }
+
+    // ----- Event wiring -----
+    document.addEventListener('DOMContentLoaded', ()=>{
+      updateHeader(); startDailyTimer();
+      // open modal
+      $('#openAuth').addEventListener('click', ()=>{ $('#modal').classList.remove('hidden'); });
+      $('#closeModal').addEventListener('click', ()=>{ $('#modal').classList.add('hidden'); });
+      $('#openClass').addEventListener('click', ()=>{ $('#classModal').classList.remove('hidden'); const s=loadSession(); if(s){ const u = loadUsers()[s.name]; $('#selClass').value = u.class; $('#selMode').value = u.mode; } });
+      $('#closeClass').addEventListener('click', ()=>{ $('#classModal').classList.add('hidden'); });
+      $('#saveClass').addEventListener('click', ()=>{
+        const s = loadSession(); if(!s) return alert('Login first'); const users = loadUsers(); const u = users[s.name]; u.class = parseInt($('#selClass').value,10); u.mode = $('#selMode').value; saveUsers(users); updateHeader(); $('#classModal').classList.add('hidden');
+      });
+
+      // register & login
+      $('#regBtn').addEventListener('click', ()=>{
+        const name = $('#regName').value.trim(); const pass = $('#regPass').value; const cls = $('#regClass').value; const mode = $('#regMode').value;
+        if(!name||!pass) { $('#authMsg').innerText='Fill name & password'; return; }
+        const r = registerUser(name,pass,cls,mode);
+        if(!r.ok) { $('#authMsg').innerText = r.msg; return; }
+        $('#authMsg').innerText='Registered and logged in!'; $('#modal').classList.add('hidden'); updateHeader(); startDailyTimer();
+      });
+      $('#loginBtn').addEventListener('click', ()=>{
+        const name = $('#loginName').value.trim(); const pass = $('#loginPass').value;
+        const r = loginUser(name,pass);
+        if(!r.ok){ $('#authMsg').innerText=r.msg; return; }
+        $('#authMsg').innerText='Logged in!'; $('#modal').classList.add('hidden'); updateHeader(); startDailyTimer();
+      });
+
+      // game buttons
+      document.querySelectorAll('.gameBtn').forEach(b=>{
+        b.addEventListener('click', ()=>{
+          const g = b.dataset.game;
+          if(g==='dailyQuiz') renderDailyQuiz();
+          if(g==='mathSprint') renderMathSprint();
+          if(g==='reactionGame') renderReactionGame();
+        });
+      });
+
+      // quick demo: open daily if ready
+      // if you want Daily Quiz visible on load uncomment below
+      // renderDailyQuiz();
+    });
+
+    // Expose for debugging in console
+    window.__GLH = {loadUsers, saveUsers, loadSession, saveSession};
+  </script>
+</body>
+</html>

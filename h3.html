@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>
+   Interactive Course Portal
+  </title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto&amp;display=swap" rel="stylesheet"/>
+<style>
+   body {
+    font-family: 'Roboto', sans-serif;
+    margin:0;
+    padding:0;
+    min-height:100vh;
+    overflow-x:hidden;
+    color:white;
+    position: relative;
+    background: #0a0a0a;
+}
+#f1-bg {
+    position: fixed;
+    top: 50%;
+    left: -50%;
+    width: 150%;
+    transform: translateY(-50%);
+    z-index:0;
+    opacity:0.4;
+    animation: moveF1 30s linear infinite;
+}
+#driver-img {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 150px;
+    z-index:1;
+    opacity:0.9;
+    border-radius: 10px;
+}
+@keyframes moveF1 {0% { left: -50%; } 50% { left: -25%; } 100% { left: -50%; }}
+body::before {content:"";position:fixed;top:0; left:0;width:100%; height:100%;background: rgba(0,0,0,0.7); z-index:0;}
+header {text-align:center; padding:30px 20px; background: rgba(30,30,80,0.9); backdrop-filter: blur(5px); border-bottom: 2px solid #FFD700; position: relative; z-index:1;}
+header h1 {margin:0;font-size:28px;color:#FFD700;}
+header p {margin-top:5px;font-size:16px;color:#FFFFAA;}
+.container {max-width:1200px; margin:30px auto; padding:0 20px; position: relative; z-index:1;}
+.section-title {font-weight:bold; margin:20px 0 10px; font-size:20px; color:#00BFFF; text-shadow: 2px 2px 5px #000;}
+.courses-grid {display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:20px;}
+.course-card {background: rgba(0,191,255,0.1); padding:20px; border-radius:12px; box-shadow: 0 0 10px rgba(0,191,255,0.5); cursor:pointer; transition: transform 0.3s, box-shadow 0.3s, background 0.3s, filter 0.3s; border: 1px solid rgba(0,191,255,0.5); position: relative;}
+.course-card:hover {transform: translateY(-5px) scale(1.05); box-shadow: 0 0 30px rgba(0,191,255,0.8), 0 0 60px rgba(0,191,255,0.5); background: rgba(0,191,255,0.2); filter: drop-shadow(0 0 10px #00BFFF);}
+.course-title {font-size:18px; font-weight:bold; margin-bottom:10px; color:#FFD700;}
+.course-detail {display:none; margin-top:10px; transition: max-height 0.5s ease, opacity 0.5s ease;}
+.course-detail ul, .course-detail p {margin-left:15px; color:#fff;}
+.search-box {text-align:center; margin-bottom:20px;}
+.search-box input {padding:10px; width:80%; max-width:500px; font-size:16px; border-radius:8px; border:1px solid #00BFFF; outline:none; background:#101010; color:white; transition: box-shadow 0.3s;}
+.search-box input:focus {box-shadow: 0 0 15px #00BFFF;}
+.search-results {margin-top:20px;}
+.particle {position: absolute; background: rgba(0,191,255,0.7); width: 3px; height: 3px; border-radius:50%; animation: moveParticle linear infinite;}
+@keyframes moveParticle {0% {transform: translateY(0) translateX(0);} 100% {transform: translateY(-100vh) translateX(50vw);}}
+  </style>
+</head>
+<body>
+<img id="f1-bg" src="team-car.jpg"/>
+<img id="driver-img" src="driver.jpg"/>
+<header>
+<h1>
+    Interactive Course Portal
+   </h1>
+<p>
+    Top Courses &amp; Search Others
+   </p>
+</header>
+<!-- Unified Language Dropdown (auto-inserted) -->
+<style>
+      #langSwitcher {
+        margin: 12px auto;
+        text-align: center;
+      }
+      #langSelect {
+        padding: 6px 10px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        font-size: 14px;
+        cursor: pointer;
+      }
+      #langLabel {
+        margin-right: 8px;
+        font-weight: 600;
+      }
+    </style>
+<div id="langSwitcher">
+<label for="langSelect" id="langLabel">🌐 Language:</label>
+<select id="langSelect" onchange="switchLanguage(this.value)">
+<option selected="" value="">English</option><option value="_hi">हिन्दी</option><option value="_bho">भोजपुरी</option><option value="_bn">বাংলা</option>
+</select>
+</div>
+<script>
+    (function(){
+      const suffixRegex = new RegExp("(_hi|_bho|_bn)?\.html$");
+      window.switchLanguage = function(suffix) {
+          const current = window.location.pathname.split('/').pop() || '';
+          const folder = window.location.pathname.replace(/[^/]*$/,'');
+          // remove any of the known suffixes + .html from the filename
+          const base = current.replace(suffixRegex, '');
+          const newFile = base + (suffix || '') + '.html';
+          window.location.href = folder + newFile + window.location.search + window.location.hash;
+      };
+    })();
+    </script>
+
+<!-- Unified Language Dropdown -->
+<style>
+      #langSwitcher {
+        margin: 12px auto;
+        text-align: center;
+      }
+      #langSelect {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 8px 14px;
+        border-radius: 6px;
+        font-size: 14px;
+        cursor: pointer;
+      }
+      #langSelect:hover {
+        background-color: #0056b3;
+      }
+    </style>
+
+<script>
+    function switchLanguage(suffix) {
+        const current = window.location.pathname.split('/').pop() || '';
+        const folder = window.location.pathname.replace(/[^/]*$/, '');
+        const base = current.replace(/(_hi|_bho|_bn)?\.html$/, '');
+        const newFile = base + (suffix || '') + '.html';
+        window.location.href = folder + newFile + window.location.search + window.location.hash;
+    }
+    </script>
+<!-- Language Switcher (Dropdown) -->
+<style>
+   #langSwitcher {
+        margin: 16px auto;
+        text-align: center;
+      }
+      #langSelect {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 8px 14px;
+        border-radius: 6px;
+        font-size: 14px;
+        cursor: pointer;
+      }
+      #langSelect:hover {
+        background-color: #0056b3;
+      }
+  </style>
+<script>
+   function switchLanguage(suffix) {
+        const current = window.location.pathname.split('/').pop() || '';
+        const folder = window.location.pathname.replace(/[^/]*$/, '');
+        const base = current.replace(/(_hi|_bho|_bn)?\.html$/, '');
+        const newFile = base + (suffix || '') + '.html';
+        window.location.href = folder + newFile + window.location.search + window.location.hash;
+    }
+  </script>
+<div class="container">
+<div class="section-title">
+    Top 7 Courses
+   </div>
+<div class="courses-grid" id="topCoursesGrid">
+</div>
+<div class="section-title">
+    Search Other Courses
+   </div>
+<div class="search-box">
+<input id="searchInput" onkeyup="searchCourses()" placeholder="Type course name..." type="text"/>
+</div>
+<div class="search-results" id="searchResults">
+</div>
+</div>
+<script>
+   // 25+ courses data
+const courses = [
+    {name:"B.Tech", exams:["JEE Advanced","GATE"], careerPaths:["Software Developer","Engineer"], higherStudies:["M.Tech","MBA"], salary:"₹3-10 LPA", skills:["Coding","Problem Solving"], industryTrends:"IT, Robotics"},
+    {name:"B.Sc", exams:["NDA","SSC CGL"], careerPaths:["Data Analyst"], higherStudies:["M.Sc","MBA"], salary:"₹2.5-8 LPA", skills:["Programming","Math"], industryTrends:"Research, IT"},
+    {name:"MBA", exams:["CAT","XAT"], careerPaths:["Manager"], higherStudies:["Executive MBA"], salary:"₹6-12 LPA", skills:["Leadership"], industryTrends:"Corporate"},
+    {name:"MBBS", exams:["NEET PG"], careerPaths:["Doctor"], higherStudies:["MD/MS"], salary:"₹6-12 LPA", skills:["Medical Knowledge"], industryTrends:"Healthcare"},
+    {name:"BCA", exams:["UPSC"], careerPaths:["Software Developer"], higherStudies:["MCA"], salary:"₹2.5-6 LPA", skills:["Programming"], industryTrends:"IT"},
+    {name:"BBA", exams:["CAT"], careerPaths:["Business Analyst"], higherStudies:["MBA"], salary:"₹3-6 LPA", skills:["Management"], industryTrends:"Corporate"},
+    {name:"B.Com", exams:["CA"], careerPaths:["Accountant"], higherStudies:["M.Com"], salary:"₹2-5 LPA", skills:["Accounting"], industryTrends:"Finance"},
+    {name:"B.Arch", exams:["NATA"], careerPaths:["Architect"], higherStudies:["M.Arch"], salary:"₹3-7 LPA", skills:["Design","Creativity"], industryTrends:"Construction, Design"},
+    {name:"B.Pharm", exams:["GPAT"], careerPaths:["Pharmacist"], higherStudies:["M.Pharm"], salary:"₹2-5 LPA", skills:["Chemistry"], industryTrends:"Pharma"},
+    {name:"B.Ed", exams:["TET"], careerPaths:["Teacher"], higherStudies:["M.Ed"], salary:"₹2-4 LPA", skills:["Teaching"], industryTrends:"Education"},
+    {name:"Law (LLB)", exams:["CLAT"], careerPaths:["Lawyer"], higherStudies:["LLM"], salary:"₹3-8 LPA", skills:["Law Knowledge"], industryTrends:"Legal, Corporate"},
+    {name:"BFA", exams:["NID"], careerPaths:["Artist","Designer"], higherStudies:["MFA"], salary:"₹2-5 LPA", skills:["Creativity"], industryTrends:"Arts, Design"},
+    {name:"BHM", exams:["NCHMCT"], careerPaths:["Hotel Manager"], higherStudies:["MBA Hospitality"], salary:"₹2.5-6 LPA", skills:["Management"], industryTrends:"Hospitality"},
+    {name:"B.Sc Nursing", exams:["NEET"], careerPaths:["Nurse"], higherStudies:["M.Sc Nursing"], salary:"₹2.5-5 LPA", skills:["Healthcare"], industryTrends:"Medical"},
+    {name:"B.Physio", exams:["NEET"], careerPaths:["Physiotherapist"], higherStudies:["MPT"], salary:"₹2.5-5 LPA", skills:["Therapy"], industryTrends:"Healthcare"},
+    {name:"BCA (IT)", exams:["NIT MCA"], careerPaths:["Developer"], higherStudies:["MCA"], salary:"₹2.5-6 LPA", skills:["Coding"], industryTrends:"IT"},
+    {name:"B.Sc Agriculture", exams:["ICAR"], careerPaths:["Agronomist"], higherStudies:["M.Sc Agriculture"], salary:"₹2-5 LPA", skills:["Agriculture"], industryTrends:"Farming"},
+    {name:"BAMS", exams:["NEET"], careerPaths:["Ayurvedic Doctor"], higherStudies:["MD Ayurveda"], salary:"₹3-8 LPA", skills:["Medical"], industryTrends:"Healthcare"},
+    {name:"BHMS", exams:["NEET"], careerPaths:["Homeopathy Doctor"], higherStudies:["MD Homeopathy"], salary:"₹3-8 LPA", skills:["Medical"], industryTrends:"Healthcare"},
+    {name:"B.Sc Biotechnology", exams:["CSIR NET"], careerPaths:["Biotech Research"], higherStudies:["M.Sc Biotechnology"], salary:"₹3-7 LPA", skills:["Biotech"], industryTrends:"Research"},
+    {name:"B.Sc IT", exams:["NIT MCA"], careerPaths:["IT Specialist"], higherStudies:["M.Sc IT"], salary:"₹3-6 LPA", skills:["Programming"], industryTrends:"IT"},
+    {name:"BA", exams:["Civil Services"], careerPaths:["Researcher"], higherStudies:["MA"], salary:"₹2-5 LPA", skills:["Writing"], industryTrends:"Media, Research"},
+    {name:"BMS", exams:["CAT"], careerPaths:["Manager"], higherStudies:["MBA"], salary:"₹3-7 LPA", skills:["Management"], industryTrends:"Corporate"},
+    {name:"BFM", exams:["CFA"], careerPaths:["Financial Analyst"], higherStudies:["MFM"], salary:"₹3-8 LPA", skills:["Finance"], industryTrends:"Banking, Finance"},
+];
+
+// Top 7 courses
+const topCourses = courses.slice(0,7);
+
+// Render Top Courses
+function renderTopCourses(){
+    const container=document.getElementById('topCoursesGrid');
+    container.innerHTML='';
+    topCourses.forEach((course,index)=>{
+        const card=document.createElement('div');
+        card.className='course-card';
+        card.innerHTML=`
+            <div class="course-title">${course.name}</div>
+            <div class="course-detail" id="top-detail-${index}">
+                <div class="section-title">Competitive Exams:</div>
+                <ul>${course.exams.map(e=>`<li>${e}</li>`).join('')}</ul>
+                <div class="section-title">Career Paths:</div>
+                <ul>${course.careerPaths.map(e=>`<li>${e}</li>`).join('')}</ul>
+                <div class="section-title">Higher Studies:</div>
+                <p>${course.higherStudies.join(', ')}</p>
+                <div class="section-title">Salary:</div>
+                <p>${course.salary}</p>
+                <div class="section-title">Skills Required:</div>
+                <p>${course.skills.join(', ')}</p>
+                <div class="section-title">Industry Trends:</div>
+                <p>${course.industryTrends}</p>
+            </div>
+        `;
+        card.onclick=()=>{document.getElementById(`top-detail-${index}`).style.display =
+            document.getElementById(`top-detail-${index}`).style.display==='block'?'none':'block';};
+        container.appendChild(card);
+    });
+}
+
+// Search Other Courses
+function searchCourses(){
+    const query=document.getElementById('searchInput').value.toLowerCase();
+    const resultsContainer=document.getElementById('searchResults');
+    resultsContainer.innerHTML='';
+    const otherCourses=courses.slice(7);
+    const filtered=otherCourses.filter(c=>c.name.toLowerCase().includes(query));
+    filtered.forEach((course,index)=>{
+        const card=document.createElement('div');
+        card.className='course-card';
+        card.innerHTML=`
+            <div class="course-title">${course.name}</div>
+            <div class="course-detail" id="search-detail-${index}">
+                <div class="section-title">Competitive Exams:</div>
+                <ul>${course.exams.map(e=>`<li>${e}</li>`).join('')}</ul>
+                <div class="section-title">Career Paths:</div>
+                <ul>${course.careerPaths.map(e=>`<li>${e}</li>`).join('')}</ul>
+                <div class="section-title">Higher Studies:</div>
+                <p>${course.higherStudies.join(', ')}</p>
+                <div class="section-title">Salary:</div>
+                <p>${course.salary}</p>
+                <div class="section-title">Skills Required:</div>
+                <p>${course.skills.join(', ')}</p>
+                <div class="section-title">Industry Trends:</div>
+                <p>${course.industryTrends}</p>
+            </div>
+        `;
+        card.onclick=()=>{document.getElementById(`search-detail-${index}`).style.display =
+            document.getElementById(`search-detail-${index}`).style.display==='block'?'none':'block';};
+        resultsContainer.appendChild(card);
+    });
+}
+
+// Initial render
+renderTopCourses();
+
+// Particle effect
+for(let i=0;i<100;i++){
+    const p=document.createElement('div');
+    p.className='particle';
+    p.style.left=Math.random()*100+'vw';
+    p.style.top=Math.random()*100+'vh';
+    p.style.width=Math.random()*3+1+'px';
+    p.style.height=p.style.width;
+    p.style.animationDuration=(Math.random()*5+3)+'s';
+    document.body.appendChild(p);
+}
+  </script>
+</body>
+</html>

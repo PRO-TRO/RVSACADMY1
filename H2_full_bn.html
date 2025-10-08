@@ -1,0 +1,1477 @@
+এইচটিএমএল
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>
+   Simulations Hub — Classes 1-12 (Fixed Run/Stop)
+  </title>
+<script src="https://cdn.tailwindcss.com">
+</script>
+<style>
+   :root{
+      --bg:#071025;
+      --panel:#0b1a2a;
+      --muted:#9fc5ff;
+      --accent:#7dd3fc;
+    }
+    html,body{height:100%}
+    body{
+      margin:0; font-family:Inter,system-ui,Segoe UI,Roboto,Arial;
+      background:linear-gradient(180deg,var(--bg), #041021 140%);
+      color:#e6f6ff;
+      -webkit-font-smoothing:antialiased;
+    }
+    .container{max-width:1100px;margin:28px auto;padding:18px;}
+    .section{background:linear-gradient(180deg,#071826, #08182b); border-radius:12px; padding:14px; box-shadow: 0 8px 30px rgba(2,6,23,0.6);}
+    .title{font-weight:700; font-size:1.3rem; color:#eaf6ff}
+    label{font-size:0.85rem; color:#cfe8ff}
+    .stat{background:#071a2a40; padding:8px 10px; border-radius:8px; color:#d9f0ff;}
+    canvas{border-radius:10px; display:block; width:100%; height:420px; background: linear-gradient(180deg,#051024, #071427);}
+    input[type=range]{accent-color: #60a5fa;}
+    .btn{background:#0ea5e9;padding:8px 12px;border-radius:8px;color:#001217;font-weight:600}
+    .small{font-size:0.85rem;color:#bcd8ff}
+    .controls-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .full-row{grid-column:1/-1}
+    .scale-read{font-family:ui-monospace, Menlo, Monaco, "Roboto Mono", monospace;}
+    .card-3d { box-shadow: 0 8px 20px rgba(2,6,23,0.6), inset 0 1px 0 rgba(255,255,255,0.02); border-radius:8px; padding:10px; background: linear-gradient(180deg,#081a28,#061021); }
+    .controls-scroll{max-height:260px; overflow:auto; padding-right:8px;}
+    button.run-btn{ background:#10b981; color:#021009; }
+    button.stop-btn{ background:#ef4444; color:white; }
+  </style>
+</head>
+<body>
+<div class="container">
+<header class="mb-4 flex items-center justify-between">
+<div>
+<div class="title" id="pageTitle">
+      সিমুলেশন হাব - ক্লাস 11 সিমুলেশন
+     </div>
+<div class="small">
+      ইন্টারেক্টিভ সিমুলেশন। একটি শ্রেণি এবং সিমুলেশন নির্বাচন করুন, তারপরে টিপুন
+      <strong>
+       চালানো
+      </strong>
+      .
+     </div>
+</div>
+<div>
+<select class="p-2 rounded bg-slate-800 text-white w-72" id="simulationSelect">
+<!-- optgroups for Class 1..12 -->
+<optgroup label="Class 1">
+<option value="C1_bounsing">
+        বাউন্সিং বল (মৃদু)
+       </option>
+<option value="C1_ কলর্মিক্স">
+        রঙিন মিক্স খেলার মাঠ
+       </option>
+<option value="সি 1_কাউন্টিং">
+        গণনা এবং আকার
+       </option>
+</optgroup>
+<optgroup label="Class 2">
+<option value="C2_waves">
+        সাধারণ তরঙ্গ রিপল
+       </option>
+<option value="সি 2_বালুনস">
+        উত্থিত বেলুনগুলি
+       </option>
+<option value="সি 2_ ব্যালেন্স">
+        ভারসাম্য স্কেল (কাস্টমাইজযোগ্য)
+       </option>
+</optgroup>
+<optgroup label="Class 3">
+<option value="সি 3_োসিলেটর">
+        বসন্ত দোলক
+       </option>
+<option value="C3_shadow">
+        চলমান ছায়া
+       </option>
+<option value="C3_shapeflip">
+        শেপ ফ্লিপ অ্যানিমেশন
+       </option>
+</optgroup>
+<optgroup label="Class 4">
+<option value="সি 4_স্পিড">
+        গাড়ির গতি এবং দূরত্ব
+       </option>
+<option value="সি 4_ওয়াটার">
+        জল ing ালা
+       </option>
+<option value="C4_magnets">
+        কণা আকর্ষণ (ভিজ্যুয়াল)
+       </option>
+</optgroup>
+<optgroup label="Class 5">
+<option value="C5_projectile_simple">
+        প্রক্ষেপণ (সহজ)
+       </option>
+<option value="C5_pendulum_simple">
+        দুল
+       </option>
+<option value="C5_slider">
+        ইন্টারেক্টিভ স্লাইডার
+       </option>
+</optgroup>
+<optgroup label="Class 6">
+<option value="C6_thermal">
+        হিটিং/কুলিং বার
+       </option>
+<option value="সি 6_ বুয়েন্সি">
+        ভাসমান বস্তু
+       </option>
+<option value="C6_replection">
+        প্রতিবিম্ব স্কেচ
+       </option>
+</optgroup>
+<optgroup label="Class 7">
+<option value="সি 7_ওয়েভ">
+        ট্রান্সভার্স ওয়েভ
+       </option>
+<option value="C7_CIRCITS">
+        জ্বলজ্বল বাল্ব
+       </option>
+<option value="C7_collision_simple">
+        সংঘর্ষ (কাস্টমাইজযোগ্য)
+       </option>
+</optgroup>
+<optgroup label="Class 8">
+<option value="সি 8_প্রজেক্টাইল">
+        প্রক্ষেপণ (নিয়ন্ত্রণ)
+       </option>
+<option value="সি 8_রোটর">
+        ঘোরানো রটার
+       </option>
+<option value="সি 8_ ওয়াটারসাইকেল">
+        জল চক্র (স্টাইলাইজড)
+       </option>
+</optgroup>
+<optgroup label="Class 9">
+<option value="সি 9_ফ্রিফল">
+        বিনামূল্যে পতন
+       </option>
+<option value="C9_waveint">
+        তরঙ্গ হস্তক্ষেপ
+       </option>
+<option value="C9_levers">
+        লিভার (কাস্টমাইজযোগ্য)
+       </option>
+</optgroup>
+<optgroup label="Class 10">
+<option value="C10_collision">
+        2 ডি সংঘর্ষ (বাক্স)
+       </option>
+<option value="C10_energy">
+        শক্তি রূপান্তর বার
+       </option>
+<option value="C10_optics">
+        লেন্স ফোকাস (স্টাইলাইজড)
+       </option>
+</optgroup>
+<optgroup label="Class 11">
+<option value="C11_projectile_adv">
+        প্রক্ষেপণ (উন্নত)
+       </option>
+<option value="C11_vernier">
+        ভার্নিয়ার ক্যালিপার
+       </option>
+<option value="সি 11_স্ক্রু">
+        স্ক্রু গেজ
+       </option>
+</optgroup>
+<optgroup label="Class 12">
+<option value="C12_coupled">
+        মিলিত দোলক
+       </option>
+<option value="সি 12_ডিফিউশন">
+        ডিফিউশন (এলোমেলো পদচারণা)
+       </option>
+<option value="C12_emwave">
+        2 ডি ওয়েভ রিপল
+       </option>
+</optgroup>
+</select>
+</div>
+</header>
+<!-- Unified Language Dropdown (auto-inserted) -->
+<style>
+      #langSwitcher {
+        margin: 12px auto;
+        text-align: center;
+      }
+      #langSelect {
+        padding: 6px 10px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        font-size: 14px;
+        cursor: pointer;
+      }
+      #langLabel {
+        margin-right: 8px;
+        font-weight: 600;
+      }
+    </style>
+<div id="langSwitcher">
+<label for="langSelect" id="langLabel">🌐 Language:</label>
+<select id="langSelect" onchange="switchLanguage(this.value)">
+<option value="">English</option><option value="_hi">हिन्दी</option><option value="_bho">भोजपुरी</option><option selected="" value="_bn">বাংলা</option>
+</select>
+</div>
+<script>
+    (function(){
+      const suffixRegex = new RegExp("(_hi|_bho|_bn)?\.html$");
+      window.switchLanguage = function(suffix) {
+          const current = window.location.pathname.split('/').pop() || '';
+          const folder = window.location.pathname.replace(/[^/]*$/,'');
+          // remove any of the known suffixes + .html from the filename
+          const base = current.replace(suffixRegex, '');
+          const newFile = base + (suffix || '') + '.html';
+          window.location.href = folder + newFile + window.location.search + window.location.hash;
+      };
+    })();
+    </script>
+
+<!-- Unified Language Dropdown (auto-inserted) -->
+<style>
+      #langSwitcher {
+        margin: 12px auto;
+        text-align: center;
+      }
+      #langSelect {
+        padding: 6px 10px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        font-size: 14px;
+        cursor: pointer;
+      }
+      #langLabel {
+        margin-right: 8px;
+        font-weight: 600;
+      }
+    </style>
+
+<script>
+    (function(){
+      const suffixRegex = new RegExp("(_hi|_bho|_bn)?\.html$");
+      window.switchLanguage = function(suffix) {
+          const current = window.location.pathname.split('/').pop() || '';
+          const folder = window.location.pathname.replace(/[^/]*$/,'');
+          // remove any of the known suffixes + .html from the filename
+          const base = current.replace(suffixRegex, '');
+          const newFile = base + (suffix || '') + '.html';
+          window.location.href = folder + newFile + window.location.search + window.location.hash;
+      };
+    })();
+    </script>
+<!-- Unified Language Dropdown -->
+<style>
+      #langSwitcher {
+        margin: 12px auto;
+        text-align: center;
+      }
+      #langSelect {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 8px 14px;
+        border-radius: 6px;
+        font-size: 14px;
+        cursor: pointer;
+      }
+      #langSelect:hover {
+        background-color: #0056b3;
+      }
+    </style>
+<script>
+    function switchLanguage(suffix) {
+        const current = window.location.pathname.split('/').pop() || '';
+        const folder = window.location.pathname.replace(/[^/]*$/, '');
+        const base = current.replace(/(_hi|_bho|_bn)?\.html$/, '');
+        const newFile = base + (suffix || '') + '.html';
+        window.location.href = folder + newFile + window.location.search + window.location.hash;
+    }
+    </script>
+<!-- Language Switcher (Dropdown) -->
+<style>
+    #langSwitcher {
+        margin: 16px auto;
+        text-align: center;
+      }
+      #langSelect {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 8px 14px;
+        border-radius: 6px;
+        font-size: 14px;
+        cursor: pointer;
+      }
+      #langSelect:hover {
+        background-color: #0056b3;
+      }
+   </style>
+<script>
+    function switchLanguage(suffix) {
+        const current = window.location.pathname.split('/').pop() || '';
+        const folder = window.location.pathname.replace(/[^/]*$/, '');
+        const base = current.replace(/(_hi|_bho|_bn)?\.html$/, '');
+        const newFile = base + (suffix || '') + '.html';
+        window.location.href = folder + newFile + window.location.search + window.location.hash;
+    }
+   </script>
+<section class="section card-3d controls-scroll" id="controls">
+<!-- controls will be injected here -->
+</section>
+<section class="section mt-4 card-3d" id="stats">
+<!-- small stats -->
+</section>
+<section class="section mt-4">
+<h3 class="small mb-2">
+     সিমুলেশন ক্যানভাস
+    </h3>
+<canvas id="simCanvas">
+</canvas>
+<div class="mt-3" id="extraUI">
+</div>
+</section>
+</div>
+<script>
+   /* ---------- Core canvas setup ---------- */
+const canvas = document.getElementById('simCanvas');
+const ctx = canvas.getContext('2d');
+let animId = null;
+function cancelAnim(){ if(animId){ cancelAnimationFrame(animId); animId = null; } }
+function clearCanvas(){ ctx.clearRect(0,0,canvas.width,canvas.height); }
+
+/* resize handling */
+function resizeCanvas(){
+  const ratio = window.devicePixelRatio || 1;
+  const w = Math.min(1100, document.querySelector('.container').clientWidth);
+  const h = 420;
+  canvas.style.width = '100%';
+  canvas.style.height = h + 'px';
+  canvas.width = Math.floor(w * ratio);
+  canvas.height = Math.floor(h * ratio);
+  ctx.setTransform(ratio,0,0,ratio,0,0);
+}
+window.addEventListener('resize', ()=>{ resizeCanvas(); drawReadyMessage(); });
+resizeCanvas();
+
+/* show ready message */
+function drawReadyMessage(){
+  cancelAnim();
+  clearCanvas();
+  ctx.fillStyle = "#ccf3ff1a";
+  ctx.font = "18px Inter, sans-serif";
+  ctx.fillText("Simulation ready — press Run to start", 24, 40);
+}
+
+/* small helper */
+const clamp = (v,a,b) => Math.max(a, Math.min(b, v));
+function roundRect(ctx, x, y, w, h, r){
+  ctx.beginPath(); ctx.moveTo(x+r, y); ctx.arcTo(x+w, y, x+w, y+h, r); ctx.arcTo(x+w, y+h, x, y+h, r); ctx.arcTo(x, y+h, x, y, r); ctx.arcTo(x, y, x+w, y, r); ctx.closePath();
+}
+
+/* ---------- Simulations definitions ----------
+  Each sim has:
+    - controls: HTML string (use classes run-btn and stop-btn)
+    - run: function() that starts animation / draws (it MUST set animId via requestAnimationFrame)
+  Important: run should NOT be auto-invoked; we call it only on Run button click.
+-----------------------------------------------*/
+
+const sims = {};
+
+/* ---- CLASS 1 ---- */
+sims.c1_bouncing = {
+  controls: `
+    <div class="controls-grid">
+      <div><label>Elasticity (0-1) <input id="c1_elasticity" type="range" min="0" max="1" step="0.01" value="0.78" class="w-full mt-2"></label></div>
+      <div class="flex items-end gap-2">
+        <button class="run-btn btn">Run</button>
+        <button class="stop-btn btn">Stop</button>
+      </div>
+      <div class="full-row stat">Change elasticity then press Run.</div>
+    </div>
+  `,
+  run: function(){
+    cancelAnim();
+    const elasticity = parseFloat(document.getElementById('c1_elasticity').value || 0.78);
+    let y = 60, v = 0, g = 0.8, r = 26;
+    function frame(){
+      clearCanvas();
+      ctx.fillStyle = "#03121a"; ctx.fillRect(0, 320, canvas.width, 100);
+      v += g; y += v;
+      if(y + r >= 320){ y = 320 - r; v = -v * elasticity; if(Math.abs(v) < 0.5) v = 0; }
+      const grd = ctx.createLinearGradient(60, y-20, 60, y+20); grd.addColorStop(0,'#fff'); grd.addColorStop(1,'#ff6b6b');
+      ctx.beginPath(); ctx.fillStyle = grd; ctx.arc(60, y, r, 0, Math.PI*2); ctx.fill();
+      animId = requestAnimationFrame(frame);
+    }
+    frame();
+  }
+};
+
+sims.c1_colormix = {
+  controls: `
+    <div class="controls-grid">
+      <div><label>R <input id="c1_r" type="range" min="0" max="255" value="120" class="w-full mt-2"></label></div>
+      <div><label>G <input id="c1_g" type="range" min="0" max="255" value="200" class="w-full mt-2"></label></div>
+      <div><label>B <input id="c1_b" type="range" min="0" max="255" value="255" class="w-full mt-2"></label></div>
+      <div class="full-row flex items-end gap-2">
+        <button class="run-btn btn">Run</button>
+        <button class="stop-btn btn">Stop</button>
+      </div>
+      <div class="full-row stat">Adjust sliders then Run to preview.</div>
+    </div>
+  `,
+  run: function(){
+    cancelAnim();
+    function frame(){
+      clearCanvas();
+      const r = parseInt(document.getElementById('c1_r').value||120);
+      const g = parseInt(document.getElementById('c1_g').value||200);
+      const b = parseInt(document.getElementById('c1_b').value||255);
+      ctx.fillStyle = `rgb(${r},${g},${b})`;
+      roundRect(ctx, 80, 60, canvas.width-160, 260, 12); ctx.fill();
+      ctx.fillStyle = "#dff6ff"; ctx.font = "16px Inter"; ctx.fillText(`RGB(${r}, ${g}, ${b})`, 110, 100);
+      animId = requestAnimationFrame(frame);
+    }
+    frame();
+  }
+};
+
+sims.c1_counting = {
+  controls: `
+    <div class="controls-grid">
+      <div><label>Number (1-12) <input id="c1_count" type="number" min="1" max="12" value="5" class="w-full p-2 rounded bg-slate-800 mt-1"></label></div>
+      <div class="flex items-end gap-2">
+        <button class="run-btn btn">Run</button>
+        <button class="stop-btn btn">Stop</button>
+      </div>
+      <div class="full-row stat" id="c1_info">Count: 5</div>
+    </div>
+  `,
+  run: function(){
+    cancelAnim();
+    const n = parseInt(document.getElementById('c1_count').value || 5);
+    clearCanvas();
+    const size = 36, gap=14;
+    ctx.fillStyle = "#dff6ff"; ctx.font = `${size}px Inter`;
+    for(let i=0;i<n;i++){
+      const x = 60 + i*(size+gap);
+      ctx.fillText('●', x, 200);
+    }
+    const info = document.getElementById('c1_info');
+    if(info) info.textContent = `Count: ${n}`;
+    animId = requestAnimationFrame(()=>{}); // keep idle until Stop
+  }
+};
+
+/* ---- CLASS 2 ---- */
+sims.c2_waves = {
+  controls: `
+    <div class="controls-grid">
+      <div class="full-row stat">A gentle ripple — press Run to animate.</div>
+      <div class="flex items-end gap-2">
+        <button class="run-btn btn">Run</button>
+        <button class="stop-btn btn">Stop</button>
+      </div>
+    </div>
+  `,
+  run: function(){
+    cancelAnim(); let t=0;
+    function frame(){
+      clearCanvas();
+      const cx = canvas.width/2;
+      for(let i=0;i<8;i++){
+        const r = 20 + i*26 + Math.sin(t + i*0.6)*6;
+        ctx.beginPath(); ctx.strokeStyle = `rgba(126,231,255,${0.9 - i*0.1})`; ctx.lineWidth = 3;
+        ctx.arc(cx, 200, r, 0, Math.PI*2); ctx.stroke();
+      }
+      t += 0.04; animId = requestAnimationFrame(frame);
+    } frame();
+  }
+};
+
+sims.c2_balloons = {
+  controls: `
+    <div class="controls-grid">
+      <div class="full-row stat">Balloons rising — Run to animate.</div>
+      <div class="flex items-end gap-2">
+        <button class="run-btn btn">Run</button>
+        <button class="stop-btn btn">Stop</button>
+      </div>
+    </div>
+  `,
+  run: function(){
+    cancelAnim();
+    const balloons = [];
+    for(let i=0;i<6;i++) balloons.push({x:60 + i*80, y:380 - Math.random()*60, vy: - (0.5 + Math.random()*1.2)});
+    function frame(){
+      clearCanvas();
+      for(const b of balloons){
+        b.y += b.vy;
+        if(b.y < 40) b.y = 380;
+        ctx.strokeStyle = "#cfe8ff"; ctx.beginPath(); ctx.moveTo(b.x, b.y+22); ctx.lineTo(b.x, b.y+60); ctx.stroke();
+        const grad = ctx.createRadialGradient(b.x-8,b.y-10,2,b.x,b.y,24); grad.addColorStop(0,"#fff"); grad.addColorStop(1,"#ff758f");
+        ctx.fillStyle = grad; ctx.beginPath(); ctx.ellipse(b.x,b.y,22,26,0,0,Math.PI*2); ctx.fill();
+      }
+      animId = requestAnimationFrame(frame);
+    } frame();
+  }
+};
+
+sims.c2_balance = {
+  controls: `
+    <div class="controls-grid">
+      <div><label>Left Mass (kg) <input id="bal_m1" type="number" value="2.0" step="0.1" class="w-full p-2 rounded bg-slate-800 mt-1"></label></div>
+      <div><label>Right Mass (kg) <input id="bal_m2" type="number" value="3.0" step="0.1" class="w-full p-2 rounded bg-slate-800 mt-1"></label></div>
+      <div><label>Fulcrum position (-1..1) <input id="bal_f" type="range" min="-1" max="1" step="0.01" value="0" class="w-full mt-2"></label></div>
+      <div class="flex items-end gap-2">
+        <button class="run-btn btn">Run</button>
+        <button class="stop-btn btn">Stop</button>
+      </div>
+      <div class="full-row stat" id="bal_info">Balance ready</div>
+    </div>
+  `,
+  run: function(){
+    cancelAnim();
+    const m1 = parseFloat(document.getElementById('bal_m1').value) || 1;
+    const m2 = parseFloat(document.getElementById('bal_m2').value) || 1;
+    const f = parseFloat(document.getElementById('bal_f').value) || 0;
+    function frame(){
+      clearCanvas();
+      const cx = canvas.width/2;
+      const arm = 180;
+      const d1 = arm * (1 + f);
+      const d2 = arm * (1 - f);
+      const torqueL = m1 * d1;
+      const torqueR = m2 * d2;
+      const angle = (torqueL - torqueR) / (torqueL + torqueR + 0.001) * 0.25;
+      ctx.fillStyle="#061524"; ctx.fillRect(0,320,canvas.width,120);
+      ctx.fillStyle="#dff6ff"; ctx.beginPath(); ctx.arc(cx,210,8,0,Math.PI*2); ctx.fill();
+      ctx.strokeStyle = "#7ee7ff"; ctx.lineWidth = 6; ctx.beginPath(); ctx.moveTo(cx-260,200 + angle*400); ctx.lineTo(cx+260,200 - angle*400); ctx.stroke();
+      ctx.fillStyle="#ffe8c9"; ctx.beginPath(); ctx.ellipse(cx-260, 240 + angle*400, 28,16,0,0,Math.PI*2); ctx.fill();
+      ctx.beginPath(); ctx.ellipse(cx+260, 240 - angle*400,28,16,0,0,Math.PI*2); ctx.fill();
+      const info = document.getElementById('bal_info'); if(info) info.textContent = `TorqueL: ${torqueL.toFixed(2)}  TorqueR: ${torqueR.toFixed(2)}`;
+      animId = requestAnimationFrame(frame);
+    } frame();
+  }
+};
+
+/* ---- CLASS 3 ---- */
+sims.c3_oscillator = {
+  controls: `
+    <div class="controls-grid">
+      <div class="full-row stat">Spring oscillator — Run to animate.</div>
+      <div class="flex items-end gap-2">
+        <button class="run-btn btn">Run</button>
+        <button class="stop-btn btn">Stop</button>
+      </div>
+    </div>
+  `,
+  run: function(){
+    cancelAnim(); let t=0;
+    function frame(){
+      clearCanvas();
+      const cx = 140; const amp = 90; const x = cx + Math.sin(t)*amp;
+      ctx.strokeStyle="#dff6ff"; ctx.lineWidth=3; ctx.beginPath();
+      let sx = 60; ctx.moveTo(sx,200);
+      for(let i=0;i<12;i++){ sx += 12; ctx.lineTo(sx, 200 + (i%2? -18: 18)); }
+      ctx.lineTo(x-40, 200); ctx.stroke();
+      ctx.fillStyle="#ffd89b"; ctx.fillRect(x-40, 170, 80, 60);
+      t += 0.06; animId = requestAnimationFrame(frame);
+    } frame();
+  }
+};
+
+sims.c3_shadow = {
+  controls: `
+    <div class="controls-grid">
+      <div class="full-row stat">Sun and shadow — Run to animate.</div>
+      <div class="flex items-end gap-2">
+        <button class="run-btn btn">Run</button>
+        <button class="stop-btn btn">Stop</button>
+      </div>
+    </div>
+  `,
+  run: function(){
+    cancelAnim(); let t=0;
+    function frame(){
+      clearCanvas();
+      const sunX = 80 + Math.cos(t)*220; const sunY = 60 + Math.sin(t)*40;
+      ctx.beginPath(); ctx.fillStyle="#ffd166"; ctx.arc(sunX,sunY,22,0,Math.PI*2); ctx.fill();
+      const ox = canvas.width/2, oy = 260;
+      ctx.fillStyle="#fff1e6"; ctx.fillRect(ox-24, oy-40, 48, 40);
+      const shadowLen = 100 + (sunY/20);
+      ctx.fillStyle="rgba(0,0,0,0.25)"; ctx.beginPath(); ctx.ellipse(ox, oy+shadowLen/6, 42, 12 + Math.abs(Math.cos(t))*8, 0,0,Math.PI*2); ctx.fill();
+      t += 0.02; animId = requestAnimationFrame(frame);
+    } frame();
+  }
+};
+
+sims.c3_shapeflip = {
+  controls: `
+    <div class="controls-grid">
+      <div class="full-row stat">Shape flip — Run to animate.</div>
+      <div class="flex items-end gap-2">
+        <button class="run-btn btn">Run</button>
+        <button class="stop-btn btn">Stop</button>
+      </div>
+    </div>
+  `,
+  run: function(){
+    cancelAnim(); let t=0;
+    function frame(){
+      clearCanvas();
+      const cx=canvas.width/2, cy=200; const w = 120 + Math.sin(t)*40;
+      ctx.fillStyle="#7ee7ff"; roundRect(ctx, cx - w/2, cy - 60, w, 120, 18); ctx.fill();
+      t += 0.08; animId = requestAnimationFrame(frame);
+    } frame();
+  }
+};
+
+/* ---- CLASS 4 ---- */
+sims.c4_speed = {
+  controls: `
+    <div class="controls-grid">
+      <div><label>Speed <input id="c4_car_speed" type="range" min="0" max="8" step="0.1" value="2" class="w-full mt-2"></label></div>
+      <div class="flex items-end gap-2">
+        <button class="run-btn btn">Run</button>
+        <button class="stop-btn btn">Stop</button>
+      </div>
+      <div class="full-row stat" id="c4_info">Speed: 2</div>
+    </div>
+  `,
+  run: function(){
+    cancelAnim(); let x=60;
+    function frame(){
+      clearCanvas();
+      const speed = parseFloat(document.getElementById('c4_car_speed').value) || 2;
+      ctx.fillStyle="#0b1a2a"; ctx.fillRect(0,320,canvas.width,100);
+      ctx.fillStyle="#ff7b7b"; ctx.fillRect(x,260,80,36);
+      ctx.fillStyle="#05111f"; ctx.beginPath(); ctx.arc(x+16,298,10,0,Math.PI*2); ctx.fill();
+      ctx.beginPath(); ctx.arc(x+64,298,10,0,Math.PI*2); ctx.fill();
+      x += speed; if(x > canvas.width) x = -100;
+      const info = document.getElementById('c4_info'); if(info) info.textContent = `Speed: ${speed}`;
+      animId = requestAnimationFrame(frame);
+    } frame();
+  }
+};
+
+sims.c4_water = {
+  controls: `
+    <div class="controls-grid">
+      <div><label>Fill level 0-1 <input id="c4_level" type="range" min="0" max="1" step="0.01" value="0.45" class="w-full mt-2"></label></div>
+      <div class="flex items-end gap-2">
+        <button class="run-btn btn">Run</button>
+        <button class="stop-btn btn">Stop</button>
+      </div>
+      <div class="full-row stat" id="c4_info">Fill: 45%</div>
+    </div>
+  `,
+  run: function(){
+    cancelAnim();
+    const level = parseFloat(document.getElementById('c4_level').value) || 0.45;
+    clearCanvas();
+    const x = 80, w = canvas.width - 160, h = 220;
+    roundRect(ctx, x, 80, w, h, 12); ctx.strokeStyle="#dff6ff22"; ctx.stroke();
+    ctx.fillStyle="#7ee7ff33"; ctx.fillRect(x+6, 80 + (1-level)*h + 6, w-12, level*h - 12);
+    const info = document.getElementById('c4_info'); if(info) info.textContent = `Fill: ${(level*100).toFixed(0)}%`;
+    animId = requestAnimationFrame(()=>{});
+  }
+};
+
+sims.c4_magnets = {
+  controls: `
+    <div class="controls-grid">
+      <div class="full-row stat">Particles and two colored blocks (visual).</div>
+      <div class="flex items-end gap-2">
+        <button class="run-btn btn">Run</button>
+        <button class="stop-btn btn">Stop</button>
+      </div>
+    </div>
+  `,
+  run: function(){
+    cancelAnim(); let t=0;
+    function frame(){
+      clearCanvas();
+      for(let i=0;i<24;i++){
+        const angle = i/24*Math.PI*2;
+        const rx = (canvas.width/2) + Math.cos(angle)*(80 + Math.sin(t/2+i)*20);
+        const ry = 200 + Math.sin(angle)*(30 + Math.cos(t/3+i)*14);
+        ctx.beginPath(); ctx.fillStyle="#ffd9b8"; ctx.arc(rx,ry,6,0,Math.PI*2); ctx.fill();
+      }
+      ctx.fillStyle="#ff6b6b"; roundRect(ctx, 120-36, 170-30, 72,60,10); ctx.fill();
+      ctx.fillStyle="#7ee7ff"; roundRect(ctx, canvas.width-120-36, 170-30, 72,60,10); ctx.fill();
+      t += 0.05; animId = requestAnimationFrame(frame);
+    } frame();
+  }
+};
+
+/* ---- CLASS 5 ---- */
+sims.c5_projectile_simple = {
+  controls: `
+    <div class="controls-grid">
+      <div><label>v₀ <input id="c5_v0" type="number" value="25" step="0.1" class="w-full p-2 rounded bg-slate-800 mt-1"></label></div>
+      <div><label>Angle° <input id="c5_angle" type="number" value="45" step="0.5" class="w-full p-2 rounded bg-slate-800 mt-1"></label></div>
+      <div><label>g <input id="c5_g" type="number" value="9.8" step="0.1" class="w-full p-2 rounded bg-slate-800 mt-1"></label></div>
+      <div class="flex items-end gap-2">
+        <button class="run-btn btn">Run</button>
+        <button class="stop-btn btn">Stop</button>
+      </div>
+    </div>
+  `,
+  run: function(){
+    cancelAnim();
+    const v0 = parseFloat(document.getElementById('c5_v0').value);
+    const angle = parseFloat(document.getElementById('c5_angle').value)*Math.PI/180;
+    const g = parseFloat(document.getElementById('c5_g').value);
+    const vx = v0*Math.cos(angle), vy = v0*Math.sin(angle);
+    const pts=[];
+    for(let t=0;t<10;t+=0.02){
+      const x = vx*t, y = vy*t - 0.5*g*t*t;
+      if(y < -2) break; pts.push({x,y});
+    }
+    let idx=0;
+    function frame(){
+      clearCanvas();
+      ctx.fillStyle="#041324"; ctx.fillRect(0,320,canvas.width,120);
+      ctx.strokeStyle="#7ee7ff"; ctx.beginPath();
+      for(let i=0;i<pts.length;i++){
+        const px = 40 + pts[i].x*10; const py = 320 - pts[i].y*10;
+        if(i===0) ctx.moveTo(px,py); else ctx.lineTo(px,py);
+      }
+      ctx.stroke();
+      if(idx < pts.length){
+        const p = pts[idx];
+        ctx.beginPath(); ctx.fillStyle="#ff8a65"; ctx.arc(40+p.x*10, 320-p.y*10, 8,0,Math.PI*2); ctx.fill();
+      }
+      idx++;
+      if(idx <= pts.length) animId = requestAnimationFrame(frame); else cancelAnim();
+    }
+    frame();
+  }
+};
+
+sims.c5_pendulum_simple = {
+  controls: `
+    <div class="controls-grid">
+      <div><label>Length (m) <input id="c5_L" type="number" value="1.0" step="0.1" class="w-full p-2 rounded bg-slate-800 mt-1"></label></div>
+      <div><label>Angle° <input id="c5_a0" type="number" value="25" step="1" class="w-full p-2 rounded bg-slate-800 mt-1"></label></div>
+      <div><label>g <input id="c5_g2" type="number" value="9.8" step="0.1" class="w-full p-2 rounded bg-slate-800 mt-1"></label></div>
+      <div class="flex items-end gap-2">
+        <button class="run-btn btn">Run</button>
+        <button class="stop-btn btn">Stop</button>
+      </div>
+    </div>
+  `,
+  run: function(){
+    cancelAnim();
+    const L = parseFloat(document.getElementById('c5_L').value);
+    const angle0 = parseFloat(document.getElementById('c5_a0').value)*Math.PI/180;
+    const g = parseFloat(document.getElementById('c5_g2').value);
+    let th = angle0, w=0;
+    function frame(){
+      clearCanvas();
+      const origin = {x:canvas.width/2, y:60};
+      const bob = {x: origin.x + Math.sin(th)*L*120, y: origin.y + Math.cos(th)*L*120};
+      ctx.strokeStyle="#ffd89b"; ctx.lineWidth=3; ctx.beginPath(); ctx.moveTo(origin.x, origin.y); ctx.lineTo(bob.x, bob.y); ctx.stroke();
+      ctx.beginPath(); ctx.fillStyle="#ff6b6b"; ctx.arc(bob.x, bob.y, 22, 0, Math.PI*2); ctx.fill();
+      const a = -(g/L)*Math.sin(th); w += a*0.02; th += w*0.02;
+      animId = requestAnimationFrame(frame);
+    }
+    frame();
+  }
+};
+
+sims.c5_slider = {
+  controls: `
+    <div class="controls-grid">
+      <div><label>Value 0-100 <input id="c5_sval" type="range" min="0" max="100" value="50" class="w-full mt-2"></label></div>
+      <div class="flex items-end gap-2">
+        <button class="run-btn btn">Run</button>
+        <button class="stop-btn btn">Stop</button>
+      </div>
+      <div class="full-row stat">Adjust slider then Run.</div>
+    </div>
+  `,
+  run: function(){
+    cancelAnim();
+    const v = parseFloat(document.getElementById('c5_sval').value);
+    clearCanvas();
+    ctx.fillStyle="#dff6ff"; ctx.fillRect(60,170,canvas.width-120,40);
+    const x = 60 + ((v - 0)/100) * (canvas.width-120);
+    ctx.fillStyle="#ffb86b"; ctx.beginPath(); ctx.arc(x,190,18,0,Math.PI*2); ctx.fill();
+    animId = requestAnimationFrame(()=>{});
+  }
+};
+
+/* ---- CLASS 6 ---- */
+sims.c6_thermal = {
+  controls: `
+    <div class="controls-grid">
+      <div><label>Temperature (-50 to 100) <input id="c6_temp" type="range" min="-50" max="100" value="20" class="w-full mt-2"></label></div>
+      <div class="flex items-end gap-2">
+        <button class="run-btn btn">Run</button>
+        <button class="stop-btn btn">Stop</button>
+      </div>
+      <div class="full-row stat" id="c6_info">Temperature: 20°</div>
+    </div>
+  `,
+  run: function(){
+    cancelAnim();
+    const temp = parseFloat(document.getElementById('c6_temp').value);
+    clearCanvas();
+    const x = 80, w = canvas.width - 160, h = 260;
+    roundRect(ctx, x, 80, w, h, 12); ctx.strokeStyle="#dff6ff22"; ctx.stroke();
+    const pct = clamp((temp+50)/150, 0, 1);
+    ctx.fillStyle = `rgba(${Math.floor(255*pct)}, ${Math.floor(120*(1-pct))}, 100, 0.9)`;
+    ctx.fillRect(x+8, 80 + (1-pct)*h +6, w-16, pct*h - 12);
+    const info = document.getElementById('c6_info'); if(info) info.textContent = `Temperature: ${temp}°`;
+    animId = requestAnimationFrame(()=>{});
+  }
+};
+
+sims.c6_buoyancy = {
+  controls: `
+    <div class="controls-grid">
+      <div><label>Float level 0-1 <input id="c6_level" type="range" min="0" max="1" step="0.01" value="0.35" class="w-full mt-2"></label></div>
+      <div class="flex items-end gap-2">
+        <button class="run-btn btn">Run</button>
+        <button class="stop-btn btn">Stop</button>
+      </div>
+      <div class="full-row stat" id="c6_info">Buoyancy level: 35%</div>
+    </div>
+  `,
+  run: function(){
+    cancelAnim();
+    const level = parseFloat(document.getElementById('c6_level').value);
+    clearCanvas();
+    roundRect(ctx, 80, 60, canvas.width-160, 260, 12); ctx.strokeStyle="#dff6ff22"; ctx.stroke();
+    const waterH = 60 + (1-level)*260;
+    ctx.fillStyle="#7ee7ff33"; ctx.fillRect(88, waterH, canvas.width-176, 260 - (waterH-60));
+    const cx = canvas.width/2, by = waterH - 6;
+    ctx.fillStyle="#ffd89b"; ctx.beginPath(); ctx.moveTo(cx-70, by); ctx.quadraticCurveTo(cx, by+30, cx+70, by); ctx.fill();
+    const info = document.getElementById('c6_info'); if(info) info.textContent = `Buoyancy level: ${(level*100).toFixed(0)}%`;
+    animId = requestAnimationFrame(()=>{});
+  }
+};
+
+sims.c6_reflection = {
+  controls: `
+    <div class="controls-grid">
+      <div class="full-row stat">Reflection sketch.</div>
+      <div class="flex items-end gap-2">
+        <button class="run-btn btn">Run</button>
+        <button class="stop-btn btn">Stop</button>
+      </div>
+    </div>
+  `,
+  run: function(){
+    cancelAnim();
+    clearCanvas();
+    const px = 80, py = 200;
+    const mx1 = canvas.width/2-120, my = 180, mx2 = canvas.width/2+120;
+    ctx.fillStyle="#071427"; ctx.fillRect(0,0,canvas.width,canvas.height);
+    ctx.beginPath(); ctx.strokeStyle="#dff6ff44"; ctx.lineWidth=8; ctx.moveTo(mx1,my); ctx.lineTo(mx2,my); ctx.stroke();
+    ctx.strokeStyle="#ffd166"; ctx.lineWidth=3; ctx.beginPath(); ctx.moveTo(px,py); ctx.lineTo(canvas.width/2,120); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(canvas.width/2,120); ctx.lineTo(canvas.width-80,260); ctx.stroke();
+    animId = requestAnimationFrame(()=>{});
+  }
+};
+
+/* ---- CLASS 7 ---- */
+sims.c7_wave = {
+  controls: `
+    <div class="controls-grid">
+      <div class="full-row stat">Transverse wave — Run to animate.</div>
+      <div class="flex items-end gap-2">
+        <button class="run-btn btn">Run</button>
+        <button class="stop-btn btn">Stop</button>
+      </div>
+    </div>
+  `,
+  run: function(){
+    cancelAnim(); let t=0;
+    function frame(){ clearCanvas();
+      const mid = 200; ctx.strokeStyle="#7ee7ff"; ctx.lineWidth=3; ctx.beginPath();
+      for(let x=0;x<canvas.width;x++){ const y = mid + Math.sin((x/20) + t) * 30; if(x===0) ctx.moveTo(x,y); else ctx.lineTo(x,y); }
+      ctx.stroke(); t += 0.12; animId = requestAnimationFrame(frame);
+    } frame();
+  }
+};
+
+sims.c7_circuits = {
+  controls: `
+    <div class="controls-grid">
+      <div class="full-row stat">Blinking bulb (visual).</div>
+      <div class="flex items-end gap-2">
+        <button class="run-btn btn">Run</button>
+        <button class="stop-btn btn">Stop</button>
+      </div>
+    </div>
+  `,
+  run: function(){
+    cancelAnim(); let on=true;
+    function frame(){ clearCanvas();
+      const cx = canvas.width/2;
+      ctx.beginPath(); ctx.fillStyle = on ? "#ffd166" : "#444"; ctx.arc(cx,200,36,0,Math.PI*2); ctx.fill();
+      ctx.strokeStyle = on ? "#7ee7ff" : "#4b5563"; ctx.lineWidth=6;
+      ctx.beginPath(); ctx.moveTo(80,200); ctx.lineTo(cx-36,200); ctx.lineTo(cx+36,200); ctx.lineTo(canvas.width-80,200); ctx.stroke();
+      on = !on; animId = requestAnimationFrame(frame);
+    } frame();
+  }
+};
+
+sims.c7_collision_simple = {
+  controls: `
+    <div class="controls-grid">
+      <div><label>Mass 1 (kg) <input id="c7_m1" type="number" value="2.0" step="0.1" class="w-full p-2 rounded bg-slate-800 mt-1"></label></div>
+      <div><label>Vel 1 (px/frame) <input id="c7_v1" type="number" value="2.0" step="0.1" class="w-full p-2 rounded bg-slate-800 mt-1"></label></div>
+      <div><label>Mass 2 (kg) <input id="c7_m2" type="number" value="3.0" step="0.1" class="w-full p-2 rounded bg-slate-800 mt-1"></label></div>
+      <div><label>Vel 2 (px/frame) <input id="c7_v2" type="number" value="-1.0" step="0.1" class="w-full p-2 rounded bg-slate-800 mt-1"></label></div>
+      <div><label>Type <select id="c7_type" class="w-full p-2 rounded bg-slate-800 mt-1"><option value="elastic">Elastic</option><option value="inelastic">Inelastic</option></select></label></div>
+      <div class="flex items-end gap-2">
+        <button class="run-btn btn">Run</button>
+        <button class="stop-btn btn">Stop</button>
+      </div>
+      <div class="full-row stat">Set masses & velocities then Run.</div>
+    </div>
+  `,
+  run: function(){
+    cancelAnim();
+    let m1 = parseFloat(document.getElementById('c7_m1').value)||2;
+    let v1 = parseFloat(document.getElementById('c7_v1').value)||2;
+    let m2 = parseFloat(document.getElementById('c7_m2').value)||2;
+    let v2 = parseFloat(document.getElementById('c7_v2').value)||-1;
+    const type = document.getElementById('c7_type').value||'elastic';
+    let x1 = 140, x2 = canvas.width - 140;
+    function frame(){
+      clearCanvas();
+      ctx.fillStyle="#041324"; ctx.fillRect(0,320,canvas.width,120);
+      ctx.beginPath(); ctx.fillStyle = "#ffa69e"; ctx.arc(x1,260,24,0,Math.PI*2); ctx.fill();
+      ctx.beginPath(); ctx.fillStyle = "#aee1ff"; ctx.arc(x2,260,24,0,Math.PI*2); ctx.fill();
+      if(Math.abs(x1 - x2) <= 48){
+        if(type==='elastic'){
+          const u1 = v1, u2 = v2;
+          v1 = ((m1 - m2)/(m1 + m2)) * u1 + (2*m2/(m1 + m2)) * u2;
+          v2 = (2*m1/(m1 + m2)) * u1 + ((m2 - m1)/(m1 + m2)) * u2;
+        } else {
+          const vf = (m1*v1 + m2*v2) / (m1 + m2);
+          v1 = v2 = vf;
+        }
+      }
+      x1 += v1; x2 += v2;
+      animId = requestAnimationFrame(frame);
+    }
+    frame();
+  }
+};
+
+/* ---- CLASS 8 ---- */
+sims.c8_projectile = sims.c5_projectile_simple; // reuse but controls exist separately earlier, but mapping ok
+sims.c8_rotor = {
+  controls: `
+    <div class="controls-grid">
+      <div class="full-row stat">Rotor — Run to animate.</div>
+      <div class="flex items-end gap-2">
+        <button class="run-btn btn">Run</button>
+        <button class="stop-btn btn">Stop</button>
+      </div>
+    </div>
+  `,
+  run: function(){ cancelAnim(); let a=0; function frame(){ clearCanvas();
+      const cx=canvas.width/2, cy=210;
+      ctx.beginPath(); ctx.fillStyle="#ffd9b8"; ctx.arc(cx,cy,82,0,Math.PI*2); ctx.fill();
+      ctx.save(); ctx.translate(cx,cy); ctx.rotate(a);
+      for(let i=0;i<4;i++){ ctx.rotate(Math.PI/2); ctx.fillStyle="#ff7b7b"; roundRect(ctx, 12, -12, 120, 24, 10); ctx.fill(); }
+      ctx.restore(); a += 0.12; animId = requestAnimationFrame(frame);
+    } frame(); }
+};
+sims.c8_watercycle = {
+  controls: `
+    <div class="controls-grid">
+      <div class="full-row stat">Water cycle (stylized).</div>
+      <div class="flex items-end gap-2">
+        <button class="run-btn btn">Run</button>
+        <button class="stop-btn btn">Stop</button>
+      </div>
+    </div>
+  `,
+  run: function(){ cancelAnim(); let t=0; function frame(){ clearCanvas();
+      ctx.beginPath(); ctx.fillStyle="#ffd166"; ctx.arc(80,80,28,0,Math.PI*2); ctx.fill();
+      ctx.beginPath(); ctx.fillStyle="#e6f0ff"; ctx.ellipse(220+Math.sin(t)*20, 90, 48,26,0,0,Math.PI*2); ctx.fill();
+      ctx.fillStyle="#7ee7ff44"; ctx.fillRect(60,320,canvas.width-120,80);
+      ctx.fillStyle="#dff6ff"; ctx.font="14px Inter"; ctx.fillText("Evaporation -> Cloud -> Rain -> Lake (stylized)", 100, 36);
+      t += 0.02; animId = requestAnimationFrame(frame);
+    } frame(); }
+};
+
+/* ---- CLASS 9 ---- */
+sims.c9_freefall = {
+  controls: `
+    <div class="controls-grid">
+      <div><label>Height (m) <input id="c9_h" type="number" value="30" step="0.1" class="w-full p-2 rounded bg-slate-800 mt-1"></label></div>
+      <div><label>g (m/s²) <input id="c9_g" type="number" value="9.8" step="0.1" class="w-full p-2 rounded bg-slate-800 mt-1"></label></div>
+      <div class="flex items-end gap-2">
+        <button class="run-btn btn">Run</button>
+        <button class="stop-btn btn">Stop</button>
+      </div>
+      <div class="full-row stat" id="c9_info">t=0.00 s, v=0.00 m/s</div>
+    </div>
+  `,
+  run: function(){
+    cancelAnim();
+    const h = parseFloat(document.getElementById('c9_h').value) || 30;
+    const g = parseFloat(document.getElementById('c9_g').value) || 9.8;
+    let t=0;
+    function frame(){
+      clearCanvas();
+      const y = h - 0.5*g*t*t;
+      const py = clamp(340 - (h - y)*14, 60, 340);
+      const bx = canvas.width/2;
+      const grd = ctx.createRadialGradient(bx-8,py-8,4,bx,py,18); grd.addColorStop(0,'#fff'); grd.addColorStop(1,'#ff7b00');
+      ctx.beginPath(); ctx.fillStyle = grd; ctx.arc(bx, py, 18, 0, Math.PI*2); ctx.fill();
+      const v = Math.sqrt(Math.max(0, 2*g*(h - Math.max(y,0))));
+      const info = document.getElementById('c9_info'); if(info) info.textContent = `t=${t.toFixed(2)} s, v=${v.toFixed(2)} m/s`;
+      if(y <= 0){ cancelAnim(); return; }
+      t += 0.02; animId = requestAnimationFrame(frame);
+    }
+    frame();
+  }
+};
+
+sims.c9_waveint = {
+  controls: `
+    <div class="controls-grid">
+      <div class="full-row stat">Wave interference — Run to animate.</div>
+      <div class="flex items-end gap-2">
+        <button class="run-btn btn">Run</button>
+        <button class="stop-btn btn">Stop</button>
+      </div>
+    </div>
+  `,
+  run: function(){ cancelAnim(); let t=0; function frame(){ clearCanvas();
+      ctx.globalCompositeOperation = 'lighter';
+      for(let k=0;k<3;k++){ ctx.beginPath(); ctx.strokeStyle = `rgba(${50+k*70}, ${180-k*60}, 255, 0.6)`; ctx.lineWidth=2;
+        for(let x=0;x<canvas.width;x++){ const y = 200 + Math.sin((x/20)+(k*1.3)+t) * (40 - k*8); if(x===0) ctx.moveTo(x,y); else ctx.lineTo(x,y); }
+        ctx.stroke();
+      }
+      ctx.globalCompositeOperation = 'source-over'; t += 0.08; animId = requestAnimationFrame(frame);
+    } frame(); }
+};
+
+sims.c9_levers = {
+  controls: `
+    <div class="controls-grid">
+      <div><label>Left Force (N) <input id="lever_f1" type="number" value="10" step="0.1" class="w-full p-2 rounded bg-slate-800 mt-1"></label></div>
+      <div><label>Left Arm (m) <input id="lever_d1" type="number" value="2" step="0.1" class="w-full p-2 rounded bg-slate-800 mt-1"></label></div>
+      <div><label>Right Force (N) <input id="lever_f2" type="number" value="5" step="0.1" class="w-full p-2 rounded bg-slate-800 mt-1"></label></div>
+      <div><label>Right Arm (m) <input id="lever_d2" type="number" value="1" step="0.1" class="w-full p-2 rounded bg-slate-800 mt-1"></label></div>
+      <div class="flex items-end gap-2">
+        <button class="run-btn btn">Run</button>
+        <button class="stop-btn btn">Stop</button>
+      </div>
+      <div class="full-row stat" id="c9_info">Lever ready</div>
+    </div>
+  `,
+  run: function(){
+    cancelAnim();
+    const f1 = parseFloat(document.getElementById('lever_f1').value)||10;
+    const d1 = parseFloat(document.getElementById('lever_d1').value)||2;
+    const f2 = parseFloat(document.getElementById('lever_f2').value)||5;
+    const d2 = parseFloat(document.getElementById('lever_d2').value)||1;
+    const torqueL = f1 * d1, torqueR = f2 * d2;
+    const angle = (torqueL - torqueR) / (torqueL + torqueR + 0.001) * 0.25;
+    clearCanvas();
+    const cx = canvas.width/2;
+    ctx.fillStyle="#061524"; ctx.fillRect(0,320,canvas.width,120);
+    ctx.fillStyle="#dff6ff"; ctx.beginPath(); ctx.arc(cx,220,8,0,Math.PI*2); ctx.fill();
+    ctx.strokeStyle="#7ee7ff"; ctx.lineWidth=6; ctx.beginPath(); ctx.moveTo(cx-220,220 + angle*400); ctx.lineTo(cx+220,220 - angle*400); ctx.stroke();
+    ctx.fillStyle="#ffd89b"; roundRect(ctx, cx-220-36, 220 + angle*400 -18, 72,36,8); ctx.fill();
+    ctx.fillStyle="#ffd89b"; roundRect(ctx, cx+220-36, 220 - angle*400 -18, 72,36,8); ctx.fill();
+    const info = document.getElementById('c9_info'); if(info) info.textContent = `TorqueL: ${torqueL.toFixed(2)}  TorqueR: ${torqueR.toFixed(2)}`;
+    animId = requestAnimationFrame(()=>{});
+  }
+};
+
+/* ---- CLASS 10 ---- */
+sims.c10_collision = {
+  controls: `
+    <div class="controls-grid">
+      <div><label>Mass A (kg) <input id="c10_m1" type="number" value="2.0" step="0.1" class="w-full p-2 rounded bg-slate-800 mt-1"></label></div>
+      <div><label>Vel A X (px/frame) <input id="c10_v1x" type="number" value="2.2" step="0.1" class="w-full p-2 rounded bg-slate-800 mt-1"></label></div>
+      <div><label>Mass B (kg) <input id="c10_m2" type="number" value="2.5" step="0.1" class="w-full p-2 rounded bg-slate-800 mt-1"></label></div>
+      <div><label>Vel B X (px/frame) <input id="c10_v2x" type="number" value="-1.5" step="0.1" class="w-full p-2 rounded bg-slate-800 mt-1"></label></div>
+      <div class="flex items-end gap-2">
+        <button class="run-btn btn">Run</button>
+        <button class="stop-btn btn">Stop</button>
+      </div>
+      <div class="full-row stat">2D collision inside a box. Velocities in px/frame.</div>
+    </div>
+  `,
+  run: function(){
+    cancelAnim();
+    let balls = [
+      {x:120,y:220,r:24, vx:parseFloat(document.getElementById('c10_v1x').value)||2.2, vy:0, color:'#ffa69e'},
+      {x:420,y:280,r:28, vx:parseFloat(document.getElementById('c10_v2x').value)||-1.5, vy:0, color:'#aee1ff'}
+    ];
+    function frame(){
+      clearCanvas();
+      for(const b of balls){
+        b.x += b.vx; b.y += b.vy;
+        if(b.x - b.r < 20 || b.x + b.r > canvas.width-20) b.vx *= -1;
+        if(b.y - b.r < 20 || b.y + b.r > 300) b.vy *= -1;
+      }
+      const b0 = balls[0], b1 = balls[1];
+      const dx = b1.x - b0.x, dy = b1.y - b0.y, dist = Math.hypot(dx,dy);
+      if(dist < b0.r + b1.r){
+        const tvx = b0.vx; const tvy = b0.vy;
+        b0.vx = b1.vx; b0.vy = b1.vy;
+        b1.vx = tvx; b1.vy = tvy;
+      }
+      for(const b of balls){ ctx.beginPath(); ctx.fillStyle=b.color; ctx.arc(b.x,b.y,b.r,0,Math.PI*2); ctx.fill(); }
+      animId = requestAnimationFrame(frame);
+    } frame();
+  }
+};
+
+sims.c10_energy = {
+  controls: `
+    <div class="controls-grid">
+      <div class="full-row stat">Energy conversion bars (visual).</div>
+      <div class="flex items-end gap-2">
+        <button class="run-btn btn">Run</button>
+        <button class="stop-btn btn">Stop</button>
+      </div>
+    </div>
+  `,
+  run: function(){ cancelAnim(); let t=0; function frame(){ clearCanvas();
+      const cx=120, amp = 90, x = cx + Math.sin(t)*amp;
+      const ke = Math.abs(Math.cos(t))*100, pe = 100 - ke;
+      ctx.fillStyle="#ffd89b"; ctx.fillRect(x,170,60,60);
+      ctx.fillStyle="#ff7b7b"; ctx.fillRect(360,210,ke*2,20);
+      ctx.fillStyle="#7ee7ff"; ctx.fillRect(360,240,pe*2,20);
+      ctx.fillStyle="#dff6ff"; ctx.fillText(`KE ${ke.toFixed(1)}%`, 360, 205); ctx.fillText(`PE ${pe.toFixed(1)}%`, 360, 235);
+      t += 0.06; animId = requestAnimationFrame(frame);
+    } frame(); }
+};
+
+sims.c10_optics = {
+  controls: `
+    <div class="controls-grid">
+      <div class="full-row stat">Lens focusing (stylized).</div>
+      <div class="flex items-end gap-2">
+        <button class="run-btn btn">Run</button>
+        <button class="stop-btn btn">Stop</button>
+      </div>
+    </div>
+  `,
+  run: function(){ cancelAnim(); clearCanvas();
+    const cx=canvas.width/2;
+    ctx.beginPath(); ctx.fillStyle="#7ee7ff55"; ctx.ellipse(cx,200,60,120,0,0,Math.PI*2); ctx.fill();
+    for(let i=-2;i<=2;i++){ const sx = 40, sy = 160 + i*18; ctx.strokeStyle="#ffd166"; ctx.lineWidth=2; ctx.beginPath(); ctx.moveTo(sx,sy); ctx.lineTo(cx+100, 200); ctx.stroke(); }
+    ctx.fillStyle="#dff6ff"; ctx.fillText("Lens focusing parallel rays", 80, 40);
+    animId = requestAnimationFrame(()=>{});
+  }
+};
+
+/* ---- CLASS 11 ---- */
+sims.c11_projectile_adv = {
+  controls: `
+    <div class="controls-grid">
+      <div><label>v₀ <input id="c11_v0" type="number" value="45" step="0.1" class="w-full p-2 rounded bg-slate-800 mt-1"></label></div>
+      <div><label>Angle <input id="c11_angle" type="number" value="37" step="0.5" class="w-full p-2 rounded bg-slate-800 mt-1"></label></div>
+      <div><label>g <input id="c11_g" type="number" value="9.8" step="0.1" class="w-full p-2 rounded bg-slate-800 mt-1"></label></div>
+      <div class="flex items-end gap-2">
+        <button class="run-btn btn">Run</button>
+        <button class="stop-btn btn">Stop</button>
+      </div>
+    </div>
+  `,
+  run: function(){
+    cancelAnim();
+    const v0=parseFloat(document.getElementById('c11_v0').value||45);
+    const angle=parseFloat(document.getElementById('c11_angle').value||37)*Math.PI/180;
+    const g=parseFloat(document.getElementById('c11_g').value||9.8);
+    const vx=v0*Math.cos(angle), vy=v0*Math.sin(angle);
+    const pts=[];
+    for(let t=0;t<20;t+=0.02){ const x=vx*t, y=vy*t-0.5*g*t*t; if(y < -5) break; pts.push({x,y}); }
+    let idx=0;
+    function frame(){
+      clearCanvas();
+      ctx.fillStyle="#041324"; ctx.fillRect(0,320,canvas.width,120);
+      ctx.strokeStyle="#7ee7ff"; ctx.beginPath();
+      for(let i=0;i<pts.length;i++){ const px=40+pts[i].x*10, py=320-pts[i].y*10; if(i===0) ctx.moveTo(px,py); else ctx.lineTo(px,py); }
+      ctx.stroke();
+      if(idx<pts.length){ const p=pts[idx]; ctx.beginPath(); ctx.fillStyle="#ff8a65"; ctx.arc(40+p.x*10,320-p.y*10,9,0,Math.PI*2); ctx.fill(); }
+      idx++; if(idx<=pts.length) animId = requestAnimationFrame(frame); else cancelAnim();
+    } frame();
+  }
+};
+
+sims.c11_vernier = {
+  controls: `
+    <div class="controls-grid">
+      <div><label>Main scale start (mm)<input id="vernier_main_start" type="number" value="0" step="1" class="w-full p-2 rounded bg-slate-800 mt-1"></label></div>
+      <div><label>Main division size (mm)<input id="vernier_main_div" type="number" value="1.0" step="0.1" class="w-full p-2 rounded bg-slate-800 mt-1"></label></div>
+      <div><label>Vernier divisions<input id="vernier_divs" type="number" value="10" min="5" max="20" step="1" class="w-full p-2 rounded bg-slate-800 mt-1"></label></div>
+      <div><label>Slider position (mm)<input id="vernier_slider_mm" type="range" min="0" max="200" step="0.01" value="12.34" class="w-full mt-3"></label></div>
+      <div class="flex items-end gap-2">
+        <button class="run-btn btn">Run</button>
+        <button class="stop-btn btn">Stop</button>
+      </div>
+      <div class="full-row mt-2 stat">Least count: <span id="vernier_least_count" class="scale-read">0</span>
+        &nbsp; Main: <span id="vernier_main_reading" class="scale-read">0</span>
+        &nbsp; Vernier: <span id="vernier_vernier_reading" class="scale-read">0</span>
+        &nbsp; Final: <strong id="vernier_final" class="scale-read">0</strong></div>
+    </div>
+  `,
+  run: function(){
+    cancelAnim();
+    const mainStart = parseFloat(document.getElementById('vernier_main_start').value) || 0;
+    const vernierDivisions = parseInt(document.getElementById('vernier_divs').value) || 10;
+    const mainDivSizeMM = parseFloat(document.getElementById('vernier_main_div').value) || 1.0;
+    const sliderMM = parseFloat(document.getElementById('vernier_slider_mm').value) || 12.34;
+    const vernierDivMM = mainDivSizeMM * (vernierDivisions - 1) / vernierDivisions;
+    const leastCount = +(Math.abs(mainDivSizeMM - vernierDivMM)).toFixed(4);
+    const mainReadingFloor = Math.floor(sliderMM / mainDivSizeMM) * mainDivSizeMM + mainStart;
+    let bestI = 0; let bestDiff = Infinity;
+    for(let i=0;i<vernierDivisions;i++){ const diff = Math.abs(sliderMM - (i*vernierDivMM)); if(diff < bestDiff){ bestDiff = diff; bestI = i; } }
+    const vernierReading = bestI * leastCount;
+    const finalReading = +(mainReadingFloor + vernierReading).toFixed(4);
+    document.getElementById('vernier_least_count').textContent = leastCount.toFixed(4) + ' mm';
+    document.getElementById('vernier_main_reading').textContent = mainReadingFloor.toFixed(4) + ' mm';
+    document.getElementById('vernier_vernier_reading').textContent = vernierReading.toFixed(4) + ' mm ('+bestI+' ticks)';
+    document.getElementById('vernier_final').textContent = finalReading.toFixed(4) + ' mm';
+
+    clearCanvas();
+    const left = 60, top = 80, beamW = canvas.width - 160, beamH = 38;
+    const beamGrad = ctx.createLinearGradient(left, top, left+beamW, top+beamH);
+    beamGrad.addColorStop(0, '#b8c6ce'); beamGrad.addColorStop(0.5, '#8aa0a9'); beamGrad.addColorStop(1, '#6a7f86');
+    ctx.fillStyle = beamGrad; roundRect(ctx, left, top, beamW, beamH, 8); ctx.fill();
+    const scaleLeft = left + 40, scaleTop = top + 6, scaleW = beamW - 260, scaleH = 24;
+    ctx.fillStyle = "#071b27"; roundRect(ctx, scaleLeft, scaleTop, scaleW, scaleH, 6); ctx.fill();
+    const mmPixels = 12;
+    const ticksToDraw = Math.floor(scaleW / mmPixels);
+    ctx.strokeStyle = "#e7f6ff"; ctx.lineWidth = 1;
+    for(let i=0;i<ticksToDraw;i++){
+      const mm = i; const x = scaleLeft + i * mmPixels; const tall = (mm % 5 === 0) ? 12 : 7;
+      ctx.beginPath(); ctx.moveTo(x, scaleTop + scaleH); ctx.lineTo(x, scaleTop + scaleH - tall); ctx.stroke();
+      if(mm % 10 === 0){ ctx.fillStyle = "#dff6ff"; ctx.font = "11px Inter"; ctx.fillText(mm + " mm", x - 6, scaleTop + scaleH + 18); }
+    }
+    const vernierPx = scaleLeft + (sliderMM * mmPixels) - (vernierDivisions * (mmPixels * vernierDivMM / mainDivSizeMM) / 2);
+    const vernierW = vernierDivisions * (mmPixels * vernierDivMM / mainDivSizeMM) + 8;
+    const verGrad = ctx.createLinearGradient(vernierPx, scaleTop, vernierPx+vernierW, scaleTop+scaleH);
+    verGrad.addColorStop(0, '#ffd9b8'); verGrad.addColorStop(1, '#ffb56b');
+    roundRect(ctx, vernierPx, scaleTop - 6, vernierW, scaleH + 12, 6); ctx.fillStyle = verGrad; ctx.fill();
+    const verDivPx = (vernierW - 8) / vernierDivisions; ctx.strokeStyle = "#4b2f0b"; ctx.lineWidth = 1.4;
+    for(let j=0;j<vernierDivisions;j++){ const x = vernierPx + 4 + j * verDivPx; const h = (j % 5 === 0) ? 12 : 8; ctx.beginPath(); ctx.moveTo(x, scaleTop + scaleH + 6); ctx.lineTo(x, scaleTop + scaleH + 6 - h); ctx.stroke(); }
+    const coincideX = scaleLeft + (bestI * vernierDivMM) * mmPixels;
+    ctx.strokeStyle = "#ff6b6b"; ctx.lineWidth = 2.4; ctx.beginPath(); ctx.moveTo(coincideX, scaleTop - 8); ctx.lineTo(coincideX, scaleTop + scaleH + 16); ctx.stroke();
+    drawJaw(left - 6, top - 8, 18, 80); drawJaw(scaleLeft + sliderMM * mmPixels + 10, top - 8, 18, 80, true);
+    ctx.fillStyle = "#dff6ff"; ctx.font = "13px Inter"; ctx.fillText("Vernier — final: " + finalReading.toFixed(4) + " mm", 22, 34);
+    animId = requestAnimationFrame(()=>{});
+    function drawJaw(x,y,w,h,mirror=false){
+      const gradJ = ctx.createLinearGradient(x, y, x+w, y+h); gradJ.addColorStop(0,'#dbe9ef'); gradJ.addColorStop(1,'#94a7b1');
+      roundRect(ctx, x, y, w, h, 6); ctx.fillStyle = gradJ; ctx.fill();
+      roundRect(ctx, x+2, y+6, w-4, h-14, 4); ctx.fillStyle = "#09142066"; ctx.fill();
+    }
+  }
+};
+
+sims.c11_screw = {
+  controls: `
+    <div class="controls-grid">
+      <div><label>Sleeve shown (mm)<input id="screw_sleeve" type="number" value="3" min="0" step="1" class="w-full p-2 rounded bg-slate-800 mt-1"></label></div>
+      <div><label>Pitch (mm/rev)<input id="screw_pitch" type="number" value="0.5" step="0.001" class="w-full p-2 rounded bg-slate-800 mt-1"></label></div>
+      <div><label>Thimble divisions<input id="screw_divs" type="number" value="50" min="20" step="1" class="w-full p-2 rounded bg-slate-800 mt-1"></label></div>
+      <div><label>Thimble rotation <input id="screw_thimble" type="range" min="0" max="5" step="0.01" value="0.75" class="w-full mt-3"></label></div>
+      <div class="flex items-end gap-2">
+        <button class="run-btn btn">Run</button>
+        <button class="stop-btn btn">Stop</button>
+      </div>
+      <div class="full-row mt-2 stat">Least count: <span id="screw_least_count" class="scale-read">0</span>
+        &nbsp; Sleeve: <span id="screw_main_reading" class="scale-read">0</span>
+        &nbsp; Circular: <span id="screw_circ_reading" class="scale-read">0</span>
+        &nbsp; Final: <strong id="screw_final" class="scale-read">0</strong></div>
+    </div>
+  `,
+  run: function(){
+    cancelAnim();
+    const sleeveMainMM = parseFloat(document.getElementById('screw_sleeve').value) || 3.0;
+    const pitch = parseFloat(document.getElementById('screw_pitch').value) || 0.5;
+    const thimbleDivs = parseInt(document.getElementById('screw_divs').value) || 50;
+    const thimbleRot = parseFloat(document.getElementById('screw_thimble').value) || 0.75;
+    const leastCount = +(pitch / thimbleDivs).toFixed(5);
+    const mainVisible = Math.floor(sleeveMainMM);
+    const divisionNumber = Math.round((thimbleRot - Math.floor(thimbleRot)) * thimbleDivs) % thimbleDivs;
+    const circularMM = +(divisionNumber * leastCount).toFixed(5);
+    const final = +(mainVisible + circularMM).toFixed(5);
+    document.getElementById('screw_least_count').textContent = leastCount.toFixed(5) + ' mm';
+    document.getElementById('screw_main_reading').textContent = mainVisible.toFixed(3) + ' mm';
+    document.getElementById('screw_circ_reading').textContent = circularMM.toFixed(5) + ' mm ('+divisionNumber+' divisions)';
+    document.getElementById('screw_final').textContent = final.toFixed(5) + ' mm';
+
+    clearCanvas();
+    const centerX = canvas.width/2, centerY = canvas.height/2;
+    const sleeveX = centerX - 240, sleeveY = centerY-40, sleeveW = 240, sleeveH = 100;
+    const pixelsPerMM = 10;
+    ctx.fillStyle = "#03121a"; ctx.font = "12px Inter";
+    for(let i=0;i<24;i++){
+      const mm = i;
+      const x = sleeveX + 20 + i*pixelsPerMM;
+      const h = (mm % 5 === 0) ? 18 : 10;
+      ctx.beginPath(); ctx.moveTo(x, sleeveY + sleeveH - 14); ctx.lineTo(x, sleeveY + sleeveH - 14 - h); ctx.strokeStyle = "#07202b"; ctx.lineWidth=1.2; ctx.stroke();
+      if(mm%5===0){ ctx.fillText((mm).toString(), x-8, sleeveY + sleeveH - 22); }
+    }
+    const thimX = centerX + 160, thimY = centerY, thimR = 82;
+    ctx.beginPath(); ctx.arc(thimX, thimY, thimR, 0, Math.PI*2);
+    ctx.beginPath(); ctx.arc(thimX, thimY, thimR-18, 0, Math.PI*2); ctx.fillStyle = "#071b27"; ctx.fill();
+    ctx.save(); ctx.translate(thimX, thimY); ctx.rotate((thimbleRot % 1) * 2*Math.PI);
+    ctx.strokeStyle = "#fff7ee";
+    for(let d=0; d<thimbleDivs; d++){
+      const angle = (2*Math.PI / thimbleDivs) * d;
+      const inner = thimR - 18, outer = thimR - 6;
+      ctx.beginPath(); ctx.moveTo(inner*Math.cos(angle), inner*Math.sin(angle)); ctx.lineTo(outer*Math.cos(angle), outer*Math.sin(angle)); ctx.stroke();
+      if(d % 5 === 0){ ctx.save(); ctx.rotate(angle); ctx.translate(inner - 14, 0); ctx.rotate(-angle); ctx.fillStyle = "#e6f7ff"; ctx.font = "11px Inter"; ctx.fillText(d.toString(), -6, 4); ctx.restore(); }
+    }
+    ctx.restore();
+    const spindleLen = 120 + (thimbleRot * pitch * 40);
+    ctx.strokeStyle = "#cfdfe6"; ctx.lineWidth = 10; ctx.lineCap = 'round';
+    ctx.beginPath(); ctx.moveTo(sleeveX + sleeveW - 20, centerY); ctx.lineTo(sleeveX + sleeveW - 20 + spindleLen, centerY); ctx.stroke();
+    ctx.fillStyle = "#dff6ff"; ctx.font = "14px Inter";
+    ctx.fillText("Screw Gauge — final: " + final.toFixed(5) + " mm", 22, 34);
+    animId = requestAnimationFrame(()=>{});
+  }
+};
+
+/* ---- CLASS 12 ---- */
+sims.c12_coupled = {
+  controls: `
+    <div class="controls-grid">
+      <div class="full-row stat">Coupled oscillators — Run to animate.</div>
+      <div class="flex items-end gap-2">
+        <button class="run-btn btn">Run</button>
+        <button class="stop-btn btn">Stop</button>
+      </div>
+    </div>
+  `,
+  run: function(){ cancelAnim(); let t=0; function frame(){ clearCanvas();
+      const cx = canvas.width/2;
+      const x1 = cx - 120 + Math.sin(t)*60 + Math.sin(t*1.5)*10;
+      const x2 = cx + 120 + Math.sin(t*1.1)*60 - Math.sin(t*1.3)*8;
+      ctx.fillStyle="#ffd89b"; ctx.fillRect(x1-30,200,60,40);
+      ctx.fillStyle="#ffd89b"; ctx.fillRect(x2-30,200,60,40);
+      ctx.strokeStyle="#dff6ff"; ctx.beginPath(); ctx.moveTo(x1+30,220); ctx.lineTo(x2-30,220); ctx.stroke();
+      t += 0.06; animId = requestAnimationFrame(frame);
+    } frame(); }
+};
+
+sims.c12_diffusion = {
+  controls: `
+    <div class="controls-grid">
+      <div class="full-row stat">Random-walk diffusion — Run to animate.</div>
+      <div class="flex items-end gap-2">
+        <button class="run-btn btn">Run</button>
+        <button class="stop-btn btn">Stop</button>
+      </div>
+    </div>
+  `,
+  run: function(){ cancelAnim(); const particles = []; for(let i=0;i<180;i++) particles.push({x:canvas.width/2 + (Math.random()-0.5)*20, y:200 + (Math.random()-0.5)*20});
+    function frame(){ clearCanvas(); for(const p of particles){ p.x += (Math.random()-0.5)*4; p.y += (Math.random()-0.5)*4; ctx.beginPath(); ctx.fillStyle="rgba(126,231,255,0.7)"; ctx.arc(p.x,p.y,2.1,0,Math.PI*2); ctx.fill(); } animId = requestAnimationFrame(frame); } frame(); }
+};
+
+sims.c12_emwave = {
+  controls: `
+    <div class="controls-grid">
+      <div class="full-row stat">2D circular wave ripple — Run to animate.</div>
+      <div class="flex items-end gap-2">
+        <button class="run-btn btn">Run</button>
+        <button class="stop-btn btn">Stop</button>
+      </div>
+    </div>
+  `,
+  run: function(){ cancelAnim(); let t=0; function frame(){ clearCanvas();
+      const centerX = canvas.width/2, centerY = 220;
+      for(let k=0;k<8;k++){ ctx.beginPath(); ctx.strokeStyle=`rgba(126,231,255,${1 - k*0.11})`; ctx.arc(centerX, centerY, 12 + k*18 + Math.sin(t + k)*6, 0, Math.PI*2); ctx.stroke(); }
+      t += 0.06; animId = requestAnimationFrame(frame);
+    } frame(); }
+};
+
+/* ---------- Loader & controls wiring ---------- */
+const simSelect = document.getElementById('simulationSelect');
+const controlsEl = document.getElementById('controls');
+const statsEl = document.getElementById('stats');
+const titleEl = document.getElementById('pageTitle');
+
+let currentSim = 'c11_vernier';
+function loadSim(key){
+  currentSim = key;
+  // update title to show class label
+  const opt = [...simSelect.options].find(o=>o.value===key);
+  const groupLabel = (opt && opt.parentElement && opt.parentElement.label) ? opt.parentElement.label : 'Simulations';
+  titleEl.textContent = `Simulations Hub — ${groupLabel} Simulations`;
+  const sim = sims[key];
+  if(!sim){ controlsEl.innerHTML = '<div class="small">No controls for this simulation.</div>'; statsEl.innerHTML = ''; drawReadyMessage(); return; }
+  controlsEl.innerHTML = sim.controls;
+  statsEl.innerHTML = `<div class="small">Simulation: <strong>${key}</strong></div>`;
+  drawReadyMessage();
+  // IMPORTANT: do NOT auto-run on input change — user requested Run button control only
+}
+
+/* Event delegation for Run / Stop inside controls */
+controlsEl.addEventListener('click', function(ev){
+  const target = ev.target;
+  // Run
+  if(target && target.classList && target.classList.contains('run-btn')){
+    ev.preventDefault();
+    // run the currently loaded simulation
+    try{
+      const sim = sims[currentSim];
+      if(sim && typeof sim.run === 'function'){
+        cancelAnim();
+        // call run (which starts animation)
+        sim.run();
+      } else {
+        drawReadyMessage();
+      }
+    } catch(e){
+      console.error('Simulation run error:', e);
+      alert('Error running simulation (see console).');
+    }
+    return;
+  }
+  // Stop
+  if(target && target.classList && target.classList.contains('stop-btn')){
+    ev.preventDefault();
+    cancelAnim();
+    drawReadyMessage();
+    return;
+  }
+});
+
+/* prevent inputs from auto-running: ensure inputs inside controls do not start animation */
+controlsEl.addEventListener('input', function(ev){
+  // intentionally empty — we ignore input events so that Run must be pressed to start
+});
+
+/* selection change */
+simSelect.addEventListener('change', function(e){
+  cancelAnim();
+  drawReadyMessage();
+  loadSim(e.target.value);
+});
+
+/* initial */
+simSelect.value = 'c11_vernier';
+loadSim('c11_vernier');
+
+/* stop animation when tab hidden */
+document.addEventListener('visibilitychange', ()=>{ if(document.hidden) cancelAnim(); });
+
+/* draw ready message initially */
+drawReadyMessage();
+  </script>
+</body>
+</html>

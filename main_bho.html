@@ -1,0 +1,362 @@
+एचटीएमएल के बा .
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>
+   Learning Hub – Simulations | Gamified Learning | Courses
+  </title>
+<link href="manifest.json" rel="manifest"/>
+<meta content="#0f172a" name="theme-color"/>
+<!-- Icons for app & splash -->
+<link href="icons/icon-192.png" rel="icon" sizes="192x192" type="image/png"/>
+<link href="icons/icon-512.png" rel="apple-touch-icon"/>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"/>
+<link href="https://cdn.tailwindcss.com" rel="stylesheet"/>
+<style>
+    body {
+      margin: 0;
+      background: #030712;
+      color: #fff;
+      font-family: 'Inter', system-ui, sans-serif;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* ---------- NAVIGATION BAR ---------- */
+    header {
+      background: #0f172a;
+      border-bottom: 1px solid #1e293b;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      z-index: 50;
+    }
+
+    .nav-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 20px;
+    }
+
+    .logo {
+      font-size: 20px;
+      font-weight: 700;
+      color: #38bdf8;
+    }
+
+    nav {
+      display: flex;
+      gap: 30px;
+    }
+
+    nav button {
+      background: none;
+      border: none;
+      color: #cbd5e1;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: color 0.25s, transform 0.2s;
+    }
+
+    nav button:hover {
+      color: #38bdf8;
+      transform: translateY(-2px);
+    }
+
+    nav button.active {
+      color: #38bdf8;
+      border-bottom: 2px solid #38bdf8;
+      padding-bottom: 2px;
+    }
+
+    /* ---------- HAMBURGER ---------- */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      cursor: pointer;
+      width: 28px;
+      height: 22px;
+    }
+
+    .hamburger span {
+      height: 3px;
+      width: 100%;
+      background: #cbd5e1;
+      margin: 3px 0;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+
+    .hamburger.active span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+    }
+    .hamburger.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(6px, -6px);
+    }
+
+    /* ---------- MOBILE NAV MENU ---------- */
+    .mobile-menu {
+      display: none;
+      flex-direction: column;
+      background: #0f172a;
+      border-top: 1px solid #1e293b;
+    }
+
+    .mobile-menu button {
+      padding: 12px;
+      text-align: center;
+      border: none;
+      background: none;
+      color: #cbd5e1;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .mobile-menu button:hover {
+      background: #1e293b;
+      color: #38bdf8;
+    }
+
+    .mobile-menu button.active {
+      background: #1e293b;
+      color: #38bdf8;
+    }
+
+    /* ---------- IFRAME AREA ---------- */
+    iframe {
+      display: none;
+      width: 100%;
+      flex-grow: 1;
+      border: none;
+    }
+
+    iframe.active {
+      display: block;
+    }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 768px) {
+      nav {
+        display: none;
+      }
+      .hamburger {
+        display: flex;
+      }
+      .mobile-menu.show {
+        display: flex;
+      }
+    }
+   </style>
+</head>
+<body>
+<!-- Header -->
+<header>
+<div class="nav-container">
+<div class="logo">
+     हब सीखने के बा
+    </div>
+<!-- Desktop Navigation -->
+<nav>
+<button class="active" id="tabSim">
+      सिमुलेशन के बा .
+     </button>
+<button id="tabQuiz">
+      गेमिफाइड सीखन के बा .
+     </button>
+<button id="tabCourse">
+      कोर्स के बा .
+     </button>
+<button id="tabTeacher">
+      शिक्षक डैशबोर्ड के बा .
+     </button>
+</nav>
+<!-- Hamburger Icon -->
+<div class="hamburger" id="hamburger">
+<span>
+</span>
+<span>
+</span>
+<span>
+</span>
+</div>
+</div>
+<!-- Mobile Navigation Menu -->
+<div class="mobile-menu" id="mobileMenu">
+<button class="active" id="mTabSim">
+     सिमुलेशन के बा .
+    </button>
+<button id="mTabQuiz">
+     गेमिफाइड सीखन के बा .
+    </button>
+<button id="mTabCourse">
+     कोर्स के बा .
+    </button>
+<button id="mTabTeacher">
+     शिक्षक डैशबोर्ड के बा .
+    </button>
+</div>
+</header>
+<!-- Unified Language Dropdown (auto-inserted) -->
+<style>
+      #langSwitcher {
+        margin: 12px auto;
+        text-align: center;
+      }
+      #langSelect {
+        padding: 6px 10px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        font-size: 14px;
+        cursor: pointer;
+      }
+      #langLabel {
+        margin-right: 8px;
+        font-weight: 600;
+      }
+    </style>
+<div id="langSwitcher">
+<label for="langSelect" id="langLabel">🌐 Language:</label>
+<select id="langSelect" onchange="switchLanguage(this.value)">
+<option value="">English</option><option value="_hi">हिन्दी</option><option selected="" value="_bho">भोजपुरी</option><option value="_bn">বাংলা</option>
+</select>
+</div>
+<script>
+    (function(){
+      const suffixRegex = new RegExp("(_hi|_bho|_bn)?\.html$");
+      window.switchLanguage = function(suffix) {
+          const current = window.location.pathname.split('/').pop() || '';
+          const folder = window.location.pathname.replace(/[^/]*$/,'');
+          // remove any of the known suffixes + .html from the filename
+          const base = current.replace(suffixRegex, '');
+          const newFile = base + (suffix || '') + '.html';
+          window.location.href = folder + newFile + window.location.search + window.location.hash;
+      };
+    })();
+    </script>
+
+<!-- Unified Language Dropdown (auto-inserted) -->
+<style>
+      #langSwitcher {
+        margin: 12px auto;
+        text-align: center;
+      }
+      #langSelect {
+        padding: 6px 10px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        font-size: 14px;
+        cursor: pointer;
+      }
+      #langLabel {
+        margin-right: 8px;
+        font-weight: 600;
+      }
+    </style>
+
+<script>
+    (function(){
+      const suffixRegex = new RegExp("(_hi|_bho|_bn)?\.html$");
+      window.switchLanguage = function(suffix) {
+          const current = window.location.pathname.split('/').pop() || '';
+          const folder = window.location.pathname.replace(/[^/]*$/,'');
+          // remove any of the known suffixes + .html from the filename
+          const base = current.replace(suffixRegex, '');
+          const newFile = base + (suffix || '') + '.html';
+          window.location.href = folder + newFile + window.location.search + window.location.hash;
+      };
+    })();
+    </script>
+<!-- Language Switcher (Dropdown) -->
+<style>
+   #langSwitcher {
+        margin: 16px auto;
+        text-align: center;
+      }
+      #langSelect {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 8px 14px;
+        border-radius: 6px;
+        font-size: 14px;
+        cursor: pointer;
+      }
+      #langSelect:hover {
+        background-color: #0056b3;
+      }
+  </style>
+<script>
+   function switchLanguage(suffix) {
+        const current = window.location.pathname.split('/').pop() || '';
+        const folder = window.location.pathname.replace(/[^/]*$/, '');
+        const base = current.replace(/(_hi|_bho|_bn)?\.html$/, '');
+        const newFile = base + (suffix || '') + '.html';
+        window.location.href = folder + newFile + window.location.search + window.location.hash;
+    }
+  </script>
+<!-- Iframes for Sections -->
+<iframe class="active" id="simulations" src="H2_full.html">
+</iframe>
+<iframe id="quizzes" src="index.html">
+</iframe>
+<iframe id="courses" src="h3.html">
+</iframe>
+<iframe id="teacher" src="amankumarnaa.html">
+</iframe>
+<script>
+   const tabs = {
+  tabSim: "simulations",
+  tabQuiz: "quizzes",
+  tabCourse: "courses",
+  tabTeacher: "teacher",
+  mTabSim: "simulations",
+  mTabQuiz: "quizzes",
+  mTabCourse: "courses",
+  mTabTeacher: "teacher"
+};
+
+
+    // Tab switching
+    Object.keys(tabs).forEach(tabId => {
+      document.getElementById(tabId).addEventListener("click", () => {
+        document.querySelectorAll("iframe").forEach(f => f.classList.remove("active"));
+        document.querySelectorAll("button").forEach(b => b.classList.remove("active"));
+        document.getElementById(tabs[tabId]).classList.add("active");
+        document.getElementById(tabId).classList.add("active");
+
+        // Close mobile menu after selection
+        document.getElementById("mobileMenu").classList.remove("show");
+        document.getElementById("hamburger").classList.remove("active");
+      });
+    });
+
+    // Hamburger toggle
+    const hamburger = document.getElementById("hamburger");
+    const mobileMenu = document.getElementById("mobileMenu");
+    hamburger.addEventListener("click", () => {
+      hamburger.classList.toggle("active");
+      mobileMenu.classList.toggle("show");
+    });
+  </script>
+<script>
+   // Register Service Worker for PWA
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('service-worker.js')
+        .then(() => console.log("✅ Service Worker registered"))
+        .catch(err => console.log("Service Worker failed:", err));
+    });
+  }
+  </script>
+</body>
+</html>
